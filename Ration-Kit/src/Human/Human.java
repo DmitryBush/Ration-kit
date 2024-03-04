@@ -5,7 +5,7 @@ public class Human
     // Static instance of a class
     private static Human instance = null;
     // Calculated ration values
-    private float kilocalories, squirrels, fats, carbohydrates;
+    private float kilocalories, protein, fats, carbohydrates;
 
     private Human(int age, float height, float weight,
                   float activityCoeff, Gender gender) throws GenderException
@@ -52,7 +52,7 @@ public class Human
     }
     private void CalculateSFC()
     {
-        squirrels = (kilocalories * 0.25f) / 4;
+        protein = (kilocalories * 0.25f) / 4;
         fats = (kilocalories * 0.25f) / 9;
         carbohydrates = (kilocalories * 0.5f) / 4;
     }
