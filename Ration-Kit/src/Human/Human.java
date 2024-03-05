@@ -56,4 +56,19 @@ public class Human
         fats = (kilocalories * 0.25f) / 9;
         carbohydrates = (kilocalories * 0.5f) / 4;
     }
+    public float getKilocalories() {
+        return kilocalories;
+    }
+
+    public float getProtein() {
+        return protein;
+    }
+
+    public float getFats() {
+        return fats;
+    }
+
+    public float getCarbohydrates() {
+        return carbohydrates;
+    }
 }
