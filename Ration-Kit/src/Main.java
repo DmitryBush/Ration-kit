@@ -1,8 +1,66 @@
+import Human.Human;
+
+import java.util.Scanner;
 
 public class Main
 {
+    static Scanner _scanner = new Scanner(System.in);
+    public Human mainHuman;
     public static void main(String[] args)
     {
-        
+
+
+        Enter_Data_For_Person();
+
     }
+
+
+    private static void Enter_Data_For_Person(){
+
+        int age;
+        float height, weight, activityCoeff;
+        int Opredelitel_Mode_Life;
+
+
+        while (true){
+            System.out.println("Сколько тебе лет:");
+            age = _scanner.nextInt();
+            System.out.println("Введи рост");
+            height = _scanner.nextFloat();
+            System.out.println("Введи вес");
+            weight = _scanner.nextFloat();
+
+            System.out.println("Какой образ жизни ты ведёшь:\n" +
+                    "1) Минимальная физическая нагрузка \n" +
+                    "2) Тренировки средней тяжести 2-3 раза в неделю\n" +
+                    "3) Интенсивные тренировки более 3 раз в неделю\n" +
+                    "4) Ежедневная физическая нагрузка\n" +
+                    "(Введите номер)\n");
+
+            Opredelitel_Mode_Life = _scanner.nextInt();
+
+            switch (Opredelitel_Mode_Life){
+
+                case 1:
+                    activityCoeff = 1.2f;
+                    break;
+
+                case 2:
+                    activityCoeff = 1.4f;
+                    break;
+                case 3:
+                    activityCoeff = 1.6f;
+                    break;
+                case 4:
+                    activityCoeff = 1.8f;
+                    break;
+
+            }
+
+
+
+        }
+
+    }
+
 }
