@@ -1,16 +1,21 @@
 import Human.Human;
 
+import javax.xml.transform.Result;
+import java.sql.*;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class Main
 {
     static Scanner _scanner = new Scanner(System.in);
     public Human mainHuman;
+
     public static void main(String[] args)
     {
+        Connect_To_DataBase();
 
 
-        Enter_Data_For_Person();
+        //Enter_Data_For_Person();
 
     }
 
@@ -63,4 +68,32 @@ public class Main
 
     }
 
+   static void Connect_To_DataBase(){
+
+        try {
+            Class.forName("org.postgresql.Driver");
+            String url = "jdbc:postgresql://localhost:5432/postgres";
+
+
+            Properties authorization = new Properties();
+            authorization.put("user", "postgres");
+            authorization.put("password", "postgres");
+
+            Connection connection = DriverManager.getConnection(url, authorization);
+            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet table = statement.executeQuery("SELECT * FROM public.products ");
+
+            table.first();
+
+            for (int j = 1; j <= table.getMetaData().getColumnCount(); j++){
+                System.out.print(table.getMetaData().getColumnName(j)+"\t\t");
+            }
+
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
