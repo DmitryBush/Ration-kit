@@ -2,13 +2,12 @@ package For_Products.Product;
 
 public interface ProductBuilder
 {
-    void SetName(String name);
-    void SetOriginal(Product.Original original);
-    void SetTypeProduct(Product.Type_Product typeProduct);
-    void SetKilocalories(float kilocalories);
-    void SetProtein(float protein);
-    void SetFats(float fats);
-    void SetCarbohydrates(float carbohydrates);
-    void SetMaxGramm(float max_gramm);
+    BuilderProductClass SetName(String name);
+    BuilderProductClass SetOriginal(Product.Original original);
+    BuilderProductClass SetTypeProduct(Product.Type_Product typeProduct);
+    BuilderProductClass SetProtein(float protein);
+    BuilderProductClass SetFats(float fats);
+    BuilderProductClass SetCarbohydrates(float carbohydrates);
+    BuilderProductClass SetMaxGramm(float max_gramm);
     Product BuildProduct();
 }

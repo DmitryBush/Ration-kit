@@ -6,14 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="18b5ea5c-5555-4cac-97e3-b64174ef9a58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/AdapterDatabase.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/IGetterData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/IReceived.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/For_Products/Builder_Meal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/Builder_Meal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/For_Products/Builder_Meal_Class.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/Builder_Meal_Class.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/For_Products/One_Meal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/One_Meal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/For_Products/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/Product/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/IReceived.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/IReceived.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/For_Products/Product/BuilderProductClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/Product/BuilderProductClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/For_Products/Product/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/Product/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/For_Products/Product/ProductBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/Product/ProductBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

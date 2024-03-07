@@ -36,8 +36,9 @@ public class Product  {
         return kilocalories;
     }
 
-    public void setKilocalories(float kilocalories) {
-        this.kilocalories = kilocalories;
+    public void setKilocalories()
+    {
+        this.kilocalories = protein*4 + carbohydrates*4 + fats*9;
     }
 
     public float getProtein() {

@@ -1,5 +1,6 @@
 package Database;
 
+import For_Products.Product.BuilderProductClass;
 import For_Products.Product.Product;
 
 import java.sql.*;
@@ -7,43 +8,56 @@ import java.util.*;
 
 public class Database implements IReceived, Iterable<Product>
 {
+    String url, sql;
     private int size = 0;
     Properties authorization;
     Connection connection;
-    ResultSet table = null;
 
-    public Database()
+    public Database(String url, String sql)
     {
         try
         {
             Class.forName("org.postgresql.Driver");
-            Connect();
+            Connect(url);
+            this.sql = sql;
+            GetSize();
         }
         catch (ClassNotFoundException | SQLException e)
         {
             throw new RuntimeException(e);
         }
     }
-    private void Connect() throws SQLException
+    private void Connect(String url) throws SQLException
     {
-        String url = "jdbc:postgresql://localhost:5432/postgres";
+        this.url = url;
         authorization = new Properties();
         authorization.put("user", "postgres");
         authorization.put("password", "postgres");
 
         connection = DriverManager.getConnection(url, authorization);
     }
-    public ResultSet Select()
+    public List<Product> Select()
     {
-        String sql = "SELECT * FROM products";
         try (Statement _statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                 ResultSet.CONCUR_UPDATABLE))
         {
-            table = _statement.executeQuery(sql);
-            table.last();
-            size = table.getRow();
+            var table = _statement.executeQuery(sql);
+            List<Product> list = new LinkedList<>();
             table.beforeFirst();
-            return table;
+            while (table.next())
+            {
+                list.add(new BuilderProductClass().SetName(table.getString("name_products"))
+                        .SetOriginal(table.getBoolean("vegetable") ? Product.Original.Vegetable
+                                : Product.Original.Animal)
+                        .SetTypeProduct(table.getBoolean("garnish") ? Product.Type_Product.Garnish
+                                : table.getBoolean("adition") ? Product.Type_Product.Adition
+                                : table.getBoolean("basic") ? Product.Type_Product.Basic : null)
+                        .SetProtein(table.getFloat("protein"))
+                        .SetFats(table.getFloat("fat"))
+                        .SetCarbohydrates(table.getFloat("carbonohydrates"))
+                        .SetMaxGramm(table.getInt("max_count")).BuildProduct());
+            }
+            return list;
         }
         catch (SQLException e)
         {
@@ -52,6 +66,21 @@ public class Database implements IReceived, Iterable<Product>
     }
     public int GetSize()
     {
+        if (size == 0)
+        {
+            try (Statement _statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE))
+            {
+                var table = _statement.executeQuery(sql);
+                table.last();
+                size = table.getRow();
+                table.beforeFirst();
+            }
+            catch (SQLException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
         return size;
     }
 
@@ -60,6 +89,22 @@ public class Database implements IReceived, Iterable<Product>
     {
         return new Iterator<>()
         {
+            Statement _statement;
+            ResultSet table;
+
+            {
+                try
+                {
+                    _statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE);
+                    table = _statement.executeQuery(sql);
+                }
+                catch (SQLException e)
+                {
+                    throw new RuntimeException(e);
+                }
+            }
+
             @Override
             public boolean hasNext()
             {
@@ -69,7 +114,7 @@ public class Database implements IReceived, Iterable<Product>
                         return true;
                     else
                     {
-                        table.first();
+                        table.beforeFirst();
                         return false;
                     }
                 }
@@ -84,11 +129,16 @@ public class Database implements IReceived, Iterable<Product>
             {
                 try
                 {
-                    List<String> row = new LinkedList<>();
-                    for (var i = 1; i < table.getMetaData().getColumnCount(); i++)
-                        row.add(table.getString(i));
-
-
+                    return new BuilderProductClass().SetName(table.getString("name_products"))
+                            .SetOriginal(table.getBoolean("vegetable") ? Product.Original.Vegetable
+                                    : Product.Original.Animal)
+                            .SetTypeProduct(table.getBoolean("garnish") ? Product.Type_Product.Garnish
+                                    : table.getBoolean("adition") ? Product.Type_Product.Adition
+                                    : table.getBoolean("basic") ? Product.Type_Product.Basic : null)
+                            .SetProtein(table.getFloat("protein"))
+                            .SetFats(table.getFloat("fat"))
+                            .SetCarbohydrates(table.getFloat("carbonohydrates"))
+                            .SetMaxGramm(table.getInt("max_count")).BuildProduct();
                 }
                 catch (SQLException e)
                 {
@@ -99,7 +149,7 @@ public class Database implements IReceived, Iterable<Product>
             @Override
             public void remove()
             {
-                Iterator.super.remove();
+                throw new RuntimeException();
             }
         };
     }
