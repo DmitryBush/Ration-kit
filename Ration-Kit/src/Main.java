@@ -1,8 +1,6 @@
-import For_Products.One_Meal;
-import For_Products.Product;
+import For_Products.Product.Product;
 import Human.Human;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.*;
 

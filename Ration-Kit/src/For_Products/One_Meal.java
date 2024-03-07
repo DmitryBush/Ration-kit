@@ -1,5 +1,7 @@
 package For_Products;
 
+import For_Products.Product.Product;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;

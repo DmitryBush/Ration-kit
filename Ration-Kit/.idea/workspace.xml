@@ -6,9 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="18b5ea5c-5555-4cac-97e3-b64174ef9a58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/AdapterDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/AdapterDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/AdapterDatabase.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/IGetterData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/IGetterData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/IGetterData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/IReceived.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/For_Products/Builder_Meal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/Builder_Meal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/For_Products/Builder_Meal_Class.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/Builder_Meal_Class.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/For_Products/One_Meal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/One_Meal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/For_Products/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/Product/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/For_Products/Product/BuilderProductClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/For_Products/Product/BuilderProductClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +25,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -51,7 +56,7 @@
     "project.structure.last.edited": "Global Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Java"
+    "settings.editor.selected.configurable": "configurable.group.appearance"
   }
 }]]></component>
   <component name="RecentsManager">
