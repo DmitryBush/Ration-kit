@@ -16,7 +16,6 @@ public class One_Meal implements Iterable<Product>{
         Dinner;
     }
 
-
     @Override
     public Iterator<Product> iterator()
     {
