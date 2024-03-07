@@ -2,7 +2,6 @@ package Database;
 
 import For_Products.Product;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class AdapterDatabase extends Database implements IGetterData

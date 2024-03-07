@@ -32,7 +32,7 @@ public class Database
 
     public ResultSet Select()
     {
-        String sql = "SELECT name_products, protein, fat, carbonohydrates, id, vegetable, garnish, adition, basic, max_count FROM public.products";
+        String sql = "SELECT * FROM products";
         try (Statement _statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                 ResultSet.CONCUR_UPDATABLE))
         {

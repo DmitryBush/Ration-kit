@@ -87,7 +87,7 @@ public class Main
 
             try (Statement _statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
                 // Выполняем SQL-запрос и получаем результат в виде ResultSet
-                String sql = "SELECT name_products, protein, fat, carbonohydrates, id, vegetable, garnish, adition, basic, max_count FROM public.products";
+                String sql = "SELECT * FROM products";
                 try (ResultSet resultSet = _statement.executeQuery(sql)) {
                     // Обрабатываем каждую строку результата
                     while (resultSet.next()) {

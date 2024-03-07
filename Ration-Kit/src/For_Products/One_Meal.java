@@ -16,6 +16,14 @@ public class One_Meal implements Iterable<Product>{
         Dinner;
     }
 
+    public void AddProduct(Product product)
+    {
+        products.add(product);
+    }
+    public void RemoveProduct(Product product)
+    {
+        products.remove(product);
+    }
     @Override
     public Iterator<Product> iterator()
     {

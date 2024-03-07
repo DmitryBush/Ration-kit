@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface IGetterData
 {
-    <T> List<T> GetData() throws SQLException;
+    <T> List<T> GetData();
 }
