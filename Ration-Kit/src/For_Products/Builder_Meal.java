@@ -1,5 +1,7 @@
 package For_Products;
 
+import For_Products.Product.Product;
+
 import java.util.List;
 
 public interface Builder_Meal {
