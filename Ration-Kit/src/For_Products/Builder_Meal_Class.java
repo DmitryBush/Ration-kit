@@ -17,6 +17,7 @@ public class Builder_Meal_Class implements Builder_Meal {
     @Override
     public void Calculate_P_F_C(List<Product> _productlist) {   // подсчет текущего количества бжу и ккал
 
+
     }
 
     @Override
