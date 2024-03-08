@@ -1,5 +1,7 @@
 package For_Products;
 
+import For_Products.Product.Product;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +18,14 @@ public class One_Meal implements Iterable<Product>{
         Dinner;
     }
 
+    public void AddProduct(Product product)
+    {
+        products.add(product);
+    }
+    public void RemoveProduct(Product product)
+    {
+        products.remove(product);
+    }
     @Override
     public Iterator<Product> iterator()
     {

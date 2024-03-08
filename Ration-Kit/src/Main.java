@@ -1,8 +1,7 @@
-import For_Products.One_Meal;
-import For_Products.Product;
+import Database.Database;
+import For_Products.Product.Product;
 import Human.Human;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.*;
 
@@ -87,7 +86,7 @@ public class Main
 
             try (Statement _statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
                 // Выполняем SQL-запрос и получаем результат в виде ResultSet
-                String sql = "SELECT name_products, protein, fat, carbonohydrates, id, vegetable, garnish, adition, basic, max_count FROM public.products";
+                String sql = "SELECT * FROM products";
                 try (ResultSet resultSet = _statement.executeQuery(sql)) {
                     // Обрабатываем каждую строку результата
                     while (resultSet.next()) {
