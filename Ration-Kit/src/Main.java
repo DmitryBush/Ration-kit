@@ -1,33 +1,66 @@
-import Database.Database;
+import For_Products.One_Meal;
 import For_Products.Product.Product;
 import Human.Human;
-
+import Human.Gender;
+import Human.GenderException;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Scanner;
 
 public class Main
 {
     static Scanner _scanner = new Scanner(System.in);
-    public Human mainHuman;
+    public static Human mainHuman = new Human();
+
     public static List<Product> Basic_Products = new ArrayList<Product>();
     public static List<Product> Garnish_Products = new ArrayList<Product>();
     public static List<Product> Adition_Products = new ArrayList<Product>();
 
+    public static List<One_Meal> Meals_in_day = new ArrayList<>();
+    static One_Meal one_meal = new One_Meal();
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws GenderException {
+
+/////////////////////////////////////////  
+        one_meal.SetTypeMeal(One_Meal.Type_Of_Meal.Breakfast);
+        Meals_in_day.add(one_meal);
+        one_meal.SetTypeMeal(One_Meal.Type_Of_Meal.Lunch);
+        Meals_in_day.add(one_meal);
+        one_meal.SetTypeMeal(One_Meal.Type_Of_Meal.Dinner);
+        Meals_in_day.add(one_meal);
+/////////////////////////////////////////////////////////
         Fill_Product_List();
-        Perebor_List_Products();
-        //Enter_Data_For_Person();
+        Enter_Data_For_Person();
+
+        for(int i=0; i<Meals_in_day.size(); i++){
+            Meals_in_day.get(i).Create_Meal(Basic_Products, Garnish_Products, Adition_Products, mainHuman);
+            for(int j=0; j< Meals_in_day.get(i).products.size(); j++){
+                System.out.println("Продукт: " + Meals_in_day.get(i).products.get(j).Name + "\t");
+                System.out.println("БЖУ продукта: " + Meals_in_day.get(i).products.get(j).protein + " "+ Meals_in_day.get(i).products.get(j).fats+ " " + Meals_in_day.get(i).products.get(j).carbohydrates + "\t");
+                System.out.println("Вегетарианский ли продукт: " + Meals_in_day.get(i).products.get(j).original+ "\t");
+                System.out.println("Тип продукта: " + Meals_in_day.get(i).products.get(j).Type_product + "\t");
+            }
+            System.out.println("Общее количетсво белка за приём пищи:" + Meals_in_day.get(i).protein);
+            System.out.println("Общее количетсво жиров за приём пищи:" + Meals_in_day.get(i).fats);
+            System.out.println("Общее количетсво углеводов за приём пищи:" + Meals_in_day.get(i).carbohydrates);
+            System.out.println("Общее количетсво ккал за приём пищи:" + Meals_in_day.get(i).kilocalories);
+
+        }
+
+        //Perebor_List_Products();
+
 
     }
 
-    private static void Enter_Data_For_Person(){
+    private static void Enter_Data_For_Person() throws GenderException {
 
         int age;
-        float height, weight, activityCoeff;
+        float height, weight, activityCoeff=0;
         int Opredelitel_Mode_Life;
 
+        Gender gender;
 
         while (true){
             System.out.println("Сколько тебе лет:");
@@ -36,6 +69,16 @@ public class Main
             height = _scanner.nextFloat();
             System.out.println("Введи вес");
             weight = _scanner.nextFloat();
+            System.out.println("1) Мужчина");
+            System.out.println("2) Женщина");
+            Opredelitel_Mode_Life = _scanner.nextInt();
+            if(Opredelitel_Mode_Life ==1){
+                gender = Gender.Male;
+            }
+
+            else{
+                gender = Gender.Female;
+            }
 
             System.out.println("Какой образ жизни ты ведёшь:\n" +
                     "1) Минимальная физическая нагрузка \n" +
@@ -64,8 +107,12 @@ public class Main
 
             }
 
-
-
+            mainHuman = Human.Human(age,height,weight, activityCoeff, gender);
+            System.out.println(mainHuman);
+            System.out.println(mainHuman.getProtein());
+            System.out.println(mainHuman.getFats());
+            System.out.println(mainHuman.getCarbohydrates());
+            break;
         }
 
     }
