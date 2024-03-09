@@ -1,7 +1,7 @@
 package For_Products.Product;
 
 public class Product  {
-    public float kilocalories, protein, fats, carbohydrates, max_gramm;
+    public float kilocalories, protein, fats, carbohydrates, max_gramm, cur_count_gramm;
     public String Name;
     public Original original;
     public Type_Product Type_product;

@@ -7,12 +7,17 @@ public class Human
     // Calculated ration values
     private float kilocalories, protein, fats, carbohydrates;
 
-    private Human(int age, float height, float weight,
-                  float activityCoeff, Gender gender) throws GenderException
+
+
+    public Human(int age, float height, float weight,
+                 float activityCoeff, Gender gender) throws GenderException
     {
         kilocalories = CalculateKilocalories(age, height, weight, activityCoeff, gender);
         CalculateSFC();
     }
+
+    public Human() {}
+
     public static Human Human(int age, float height, float weight,
                               float activityCoeff, Gender gender) throws GenderException
     {
@@ -38,7 +43,9 @@ public class Human
         {
             case Male ->
             {
+
                 return (float) ((weight * 10 + height * 6.25 - age * 5 + 5) * activityCoeff);
+
             }
             case Female ->
             {
