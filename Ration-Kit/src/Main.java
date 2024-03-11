@@ -19,37 +19,42 @@ public class Main
     public static List<Product> Adition_Products = new ArrayList<Product>();
 
     public static List<One_Meal> Meals_in_day = new ArrayList<>();
-    static One_Meal one_meal = new One_Meal();
+
+
 
     public static void main(String[] args) throws GenderException {
 
 /////////////////////////////////////////  
-        one_meal.SetTypeMeal(One_Meal.Type_Of_Meal.Breakfast);
-        Meals_in_day.add(one_meal);
-        one_meal.SetTypeMeal(One_Meal.Type_Of_Meal.Lunch);
-        Meals_in_day.add(one_meal);
-        one_meal.SetTypeMeal(One_Meal.Type_Of_Meal.Dinner);
-        Meals_in_day.add(one_meal);
+
+        Meals_in_day.add(new One_Meal());
+        Meals_in_day.add(new One_Meal());
+        Meals_in_day.add(new One_Meal());
+        Meals_in_day.get(0).SetTypeMeal(One_Meal.Type_Of_Meal.Breakfast);
+        Meals_in_day.get(1).SetTypeMeal(One_Meal.Type_Of_Meal.Lunch);
+        Meals_in_day.get(2).SetTypeMeal(One_Meal.Type_Of_Meal.Dinner);
+
 /////////////////////////////////////////////////////////
         Fill_Product_List();
         Enter_Data_For_Person();
 
         for(int i=0; i<Meals_in_day.size(); i++){
-            Meals_in_day.get(i).Create_Meal(Basic_Products, Garnish_Products, Adition_Products, mainHuman);
+            Meals_in_day.get(i).Create_Meal(Basic_Products, Garnish_Products, Adition_Products, mainHuman, Meals_in_day);
+            System.out.println(Meals_in_day.get(i).typeOfMeal);
             for(int j=0; j< Meals_in_day.get(i).products.size(); j++){
                 System.out.println("Продукт: " + Meals_in_day.get(i).products.get(j).Name + "\t");
                 System.out.println("БЖУ продукта: " + Meals_in_day.get(i).products.get(j).protein + " "+ Meals_in_day.get(i).products.get(j).fats+ " " + Meals_in_day.get(i).products.get(j).carbohydrates + "\t");
                 System.out.println("Вегетарианский ли продукт: " + Meals_in_day.get(i).products.get(j).original+ "\t");
-                System.out.println("Тип продукта: " + Meals_in_day.get(i).products.get(j).Type_product + "\t");
+                System.out.println("Количество данного продукта: " + Meals_in_day.get(i).products.get(j).cur_count_gramm + "\n");
             }
             System.out.println("Общее количетсво белка за приём пищи:" + Meals_in_day.get(i).protein);
             System.out.println("Общее количетсво жиров за приём пищи:" + Meals_in_day.get(i).fats);
             System.out.println("Общее количетсво углеводов за приём пищи:" + Meals_in_day.get(i).carbohydrates);
-            System.out.println("Общее количетсво ккал за приём пищи:" + Meals_in_day.get(i).kilocalories);
+            System.out.println("Общее количетсво ккал за приём пищи:" + Meals_in_day.get(i).kilocalories + "\n\n\n");
 
         }
 
         //Perebor_List_Products();
+
 
 
     }
