@@ -3,19 +3,16 @@ package For_Products;
 import For_Products.Product.Product;
 import Human.Human;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class One_Meal implements Iterable<Product>{
 
     public float kilocalories, protein, fats, carbohydrates;
-    public float max_protein, max_fats, max_carbohydrates;
+    public float max_protein, max_fats, max_carbohydrates, max_kilocalories;
 
 
     public Type_Of_Meal typeOfMeal;
-    public List<Product> products = new LinkedList<>();
+    public List<Product> products = new ArrayList<>();
 
     public enum Type_Of_Meal {
         Breakfast,
@@ -23,7 +20,7 @@ public class One_Meal implements Iterable<Product>{
         Dinner;
     }
 
-    public void Create_Meal(List<Product> _basic_product, List<Product> _garnish_product, List<Product> _adition_product, Human _Human){
+    public void Create_Meal(List<Product> _basic_product, List<Product> _garnish_product, List<Product> _adition_product, Human _Human, List<One_Meal> meals_in_day){
         Random rand = new Random();
         int INT_Rand;
         Product _product = new Product();
@@ -47,21 +44,24 @@ public class One_Meal implements Iterable<Product>{
                 break;
         }
 
+        max_kilocalories = max_protein*4 + max_carbohydrates*4 + max_fats*9;
+
+/*
         INT_Rand = rand.nextInt(_basic_product.size());
         _product = _basic_product.get(INT_Rand);
-        count_gramm_product = (rand.nextFloat(max_protein * 0.85f) + max_protein*0.8f)/(_product.protein/100);
+        count_gramm_product = (rand.nextFloat(max_protein*0.6f, max_protein*0.7f)) / (_product.protein/100);
         _product.cur_count_gramm = count_gramm_product;
         AddProduct(_product);
         Calculate_PFC(products);
 
         INT_Rand = rand.nextInt(_garnish_product.size());
         _product = _garnish_product.get(INT_Rand);
-        count_gramm_product = (rand.nextFloat(max_carbohydrates * 0.85f) + max_carbohydrates*0.8f)/(_product.carbohydrates/100);
+        count_gramm_product = (rand.nextFloat(max_protein*0.7f, max_protein*0.8f)/(_product.carbohydrates/100));
         _product.cur_count_gramm = count_gramm_product;
         AddProduct(_product);
         Calculate_PFC(products);
 
-        /*
+
         INT_Rand = rand.nextInt(_adition_product.size());
         _product = _adition_product.get(INT_Rand);
         count_gramm_product = (rand.nextFloat(max_protein * 0.85f) + max_protein*0.8f)/(_product.protein/100);
@@ -70,25 +70,59 @@ public class One_Meal implements Iterable<Product>{
         carbohydrates +=  _product.carbohydrates * count_gramm_product;
         */
 
+        AddProduct(Check_On_New_Product(_basic_product,  meals_in_day));
+        AddProduct(Check_On_New_Product(_garnish_product,  meals_in_day));
+        AddProduct(Check_On_New_Product(_garnish_product,  meals_in_day));
 
-
-
-
-
+        Balance_Products_In_Meal();
+        Calculate_PFC(products);
     }
 
     void Calculate_PFC(List<Product> productList){
         protein =0;
         fats=0;
         carbohydrates=0;
-        kilocalories =0;
+        kilocalories = 0;
         for (int i=0; i<productList.size(); i++){
-            protein += productList.get(i).protein* productList.get(i).cur_count_gramm ;
-            fats +=  productList.get(i).fats* productList.get(i).cur_count_gramm ;
-            carbohydrates +=  productList.get(i).carbohydrates* productList.get(i).cur_count_gramm ;
+            protein += productList.get(i).protein/100  * productList.get(i).cur_count_gramm ;
+            fats +=  productList.get(i).fats/100 * productList.get(i).cur_count_gramm ;
+            carbohydrates +=  productList.get(i).carbohydrates/100 * productList.get(i).cur_count_gramm ;
         }
 
         kilocalories = protein*4 + carbohydrates*4+ fats*4;
+    }
+
+    void Balance_Products_In_Meal(){
+        /*for (float adition_product_gramm=0; adition_product_gramm < products.get(2).max_gramm; adition_product_gramm++ ){
+            for (float basic_product_gramm=0; basic_product_gramm < products.get(0).max_gramm; basic_product_gramm++ ) {
+                for (float garnish_product_gramm = 0; garnish_product_gramm < products.get(1).max_gramm; garnish_product_gramm++) {
+
+
+                }
+            }
+        }*/
+        Random rand  = new Random();
+        float basic_product_gramm = 0, garnish_product_gramm = 0, adition_product_gramm = 0;
+        garnish_product_gramm =(rand.nextFloat(max_carbohydrates*0.6f, max_carbohydrates*0.7f)/(products.get(1).carbohydrates/100));
+        if(garnish_product_gramm > products.get(1).max_gramm){
+            garnish_product_gramm =  products.get(1).max_gramm;
+        }
+        Calculate_PFC(products);
+
+        basic_product_gramm = (max_protein - protein) / (products.get(0).protein/100);
+        if(basic_product_gramm > products.get(0).max_gramm){
+            basic_product_gramm =  products.get(0).max_gramm;
+        }
+        Calculate_PFC(products);
+
+        adition_product_gramm = (max_kilocalories-kilocalories) / ((products.get(2).protein *4 /100) +  (products.get(2).carbohydrates *4 /100) + (products.get(2).fats *9 /100));;
+        if(adition_product_gramm > products.get(2).max_gramm){
+            adition_product_gramm =  products.get(2).max_gramm;
+        }
+
+        products.get(0).cur_count_gramm = basic_product_gramm;
+        products.get(1).cur_count_gramm = garnish_product_gramm;
+        products.get(2).cur_count_gramm = adition_product_gramm;
     }
 
     public void SetTypeMeal(Type_Of_Meal _type){
@@ -105,11 +139,30 @@ public class One_Meal implements Iterable<Product>{
         products.remove(product);
     }
 
-    Product Copy_Product_From_List_To_Product(){
-        Product _product = new Product();
+    Product Check_On_New_Product(List<Product> list_product,  List<One_Meal> meals_in_day){
+        boolean new_product = true;
+        Random rand = new Random();
+        Product product;
+        int Rand;
 
-
-        return _product;
+        while (true){
+            Rand = rand.nextInt(list_product.size());
+            product = list_product.get(Rand);
+            for(int i =0; i<meals_in_day.size(); i++){
+                for (int j=0; j< meals_in_day.get(i).products.size(); j++){
+                    if (product.Name == meals_in_day.get(i).products.get(j).Name){
+                        new_product=false;
+                    }
+                    else{
+                        new_product = true;
+                    }
+                }
+            }
+            if(new_product){
+                break;
+            }
+        }
+        return product;
     }
 
     @Override
