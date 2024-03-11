@@ -72,7 +72,7 @@ public class One_Meal implements Iterable<Product>{
 
         AddProduct(Check_On_New_Product(_basic_product,  meals_in_day));
         AddProduct(Check_On_New_Product(_garnish_product,  meals_in_day));
-        AddProduct(Check_On_New_Product(_garnish_product,  meals_in_day));
+        AddProduct(Check_On_New_Product(_adition_product,  meals_in_day));
 
         Balance_Products_In_Meal();
         Calculate_PFC(products);
