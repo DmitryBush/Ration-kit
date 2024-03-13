@@ -20,7 +20,7 @@ public class Main
 
     public static List<One_Meal> Meals_in_day = new ArrayList<>();
 
-
+    static float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
 
     public static void main(String[] args) throws GenderException {
 
@@ -45,15 +45,23 @@ public class Main
                 System.out.println("БЖУ продукта: " + Meals_in_day.get(i).products.get(j).protein + " "+ Meals_in_day.get(i).products.get(j).fats+ " " + Meals_in_day.get(i).products.get(j).carbohydrates + "\t");
                 System.out.println("Вегетарианский ли продукт: " + Meals_in_day.get(i).products.get(j).original+ "\t");
                 System.out.println("Количество данного продукта: " + Meals_in_day.get(i).products.get(j).cur_count_gramm + "\n");
+
             }
-            System.out.println("Общее количетсво белка за приём пищи:" + Meals_in_day.get(i).protein);
-            System.out.println("Общее количетсво жиров за приём пищи:" + Meals_in_day.get(i).fats);
-            System.out.println("Общее количетсво углеводов за приём пищи:" + Meals_in_day.get(i).carbohydrates);
-            System.out.println("Общее количетсво ккал за приём пищи:" + Meals_in_day.get(i).kilocalories + "\n\n\n");
+            day_protein +=Meals_in_day.get(i).protein;
+            day_fats +=Meals_in_day.get(i).fats;
+            day_carbonohydrates += Meals_in_day.get(i).carbohydrates;
+            System.out.println("Общее количетсво белка за приём пищи: " + Meals_in_day.get(i).protein);
+            System.out.println("Общее количетсво жиров за приём пищи: " + Meals_in_day.get(i).fats);
+            System.out.println("Общее количетсво углеводов за приём пищи: " + Meals_in_day.get(i).carbohydrates);
+            System.out.println("Общее количетсво ккал за приём пищи: " + Meals_in_day.get(i).kilocalories + "\n\n\n");
 
         }
 
-        //Perebor_List_Products();
+        day_kilocalories = day_protein*4 + day_carbonohydrates*4 + day_fats*9;
+        System.out.println("Общее количетсво белка за день: " + day_protein);
+        System.out.println("Общее количетсво жиров за день: " + day_fats);
+        System.out.println("Общее количетсво углеводов за день: " + day_carbonohydrates);
+        System.out.println("Общее количетсво ккал за приём день: " + day_kilocalories+ "\n\n\n");
 
 
 
@@ -111,12 +119,7 @@ public class Main
                     break;
 
             }
-
             mainHuman = Human.Human(age,height,weight, activityCoeff, gender);
-            System.out.println(mainHuman);
-            System.out.println(mainHuman.getProtein());
-            System.out.println(mainHuman.getFats());
-            System.out.println(mainHuman.getCarbohydrates());
             break;
         }
 
