@@ -8,28 +8,25 @@ public class Human
     private float kilocalories, protein, fats, carbohydrates;
 
 
-
-    public Human(int age, float height, float weight,
-                 float activityCoeff, Gender gender) throws GenderException
+    private Human(int age, float height, float weight,
+                 float activityCoefficient, Gender gender)
     {
-        kilocalories = CalculateKilocalories(age, height, weight, activityCoeff, gender);
+        kilocalories = CalculateKilocalories(age, height, weight, activityCoefficient, gender);
         CalculateSFC();
     }
 
-    public Human() {}
-
     public static Human Human(int age, float height, float weight,
-                              float activityCoeff, Gender gender) throws GenderException
+                              float activityCoefficient, Gender gender)
     {
         if (instance == null)
-            instance = new Human(age, height, weight, activityCoeff, gender);
+            instance = new Human(age, height, weight, activityCoefficient, gender);
         return instance;
     }
     public static synchronized Human GetInstance(int age, float height, float weight,
-                                                 float activityCoeff, Gender gender) throws GenderException
+                                                 float activityCoefficient, Gender gender)
     {
         if (instance == null)
-            instance = new Human(age, height, weight, activityCoeff, gender);
+            instance = new Human(age, height, weight, activityCoefficient, gender);
         return instance;
     }
     public static synchronized Human GetInstance()
@@ -37,24 +34,30 @@ public class Human
         return instance;
     }
     private float CalculateKilocalories(int age, float height, float weight,
-                                        float activityCoeff, Gender gender) throws GenderException
+                                        float activityCoefficient, Gender gender)
     {
-        switch (gender)
+        try
         {
-            case Male ->
+            switch (gender)
             {
+                case Male ->
+                {
 
-                return (float) ((weight * 10 + height * 6.25 - age * 5 + 5) * activityCoeff);
+                    return (float) ((weight * 10 + height * 6.25 - age * 5 + 5) * activityCoefficient);
 
+                }
+                case Female ->
+                {
+                    return (float) ((weight * 10 + height * 6.25 - age * 5 - 161) * activityCoefficient);
+                }
+                default -> throw new GenderException("Unknown gender");
             }
-            case Female ->
-            {
-                return (float) ((weight * 10 + height * 6.25 - age * 5 - 161) * activityCoeff);
-            }
-            default ->
-            {
-                throw new GenderException("Unknown gender");
-            }
+        }
+        catch (GenderException e)
+        {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            return 0;
         }
     }
     private void CalculateSFC()

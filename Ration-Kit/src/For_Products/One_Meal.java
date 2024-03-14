@@ -20,7 +20,8 @@ public class One_Meal implements Iterable<Product>{
         Dinner;
     }
 
-    public void Create_Meal(List<Product> _basic_product, List<Product> _garnish_product, List<Product> _adition_product, Human _Human, List<One_Meal> meals_in_day){
+    public void Create_Meal(List<Product> _basic_product, List<Product> _garnish_product,
+                            List<Product> _adition_product, Human _Human, List<One_Meal> meals_in_day){
         Random rand = new Random();
         int INT_Rand;
         Product _product = new Product();
