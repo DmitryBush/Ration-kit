@@ -20,4 +20,16 @@ public class Directory
         Garnish_Products = new ArrayList<>(db.Select("select * from products where garnish = true"));
         Addition_Products = new ArrayList<>(db.Select("select * from products where adition = true"));
     }
+
+    public List<Product> getBasic_Products() {
+        return Basic_Products;
+    }
+
+    public List<Product> getGarnish_Products() {
+        return Garnish_Products;
+    }
+
+    public List<Product> getAddition_Products() {
+        return Addition_Products;
+    }
 }
