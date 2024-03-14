@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Main
 {
     static Scanner _scanner = new Scanner(System.in);
-    public static Human mainHuman = new Human();
+    public static Human mainHuman;
 
     public static List<Product> Basic_Products = new ArrayList<Product>();
     public static List<Product> Garnish_Products = new ArrayList<Product>();
@@ -22,7 +22,7 @@ public class Main
 
     static float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
 
-    public static void main(String[] args) throws GenderException {
+    public static void main(String[] args){
 
 /////////////////////////////////////////  
 
@@ -67,7 +67,8 @@ public class Main
 
     }
 
-    private static void Enter_Data_For_Person() throws GenderException {
+    private static void Enter_Data_For_Person()
+    {
 
         int age;
         float height, weight, activityCoeff=0;
@@ -102,7 +103,8 @@ public class Main
 
             Opredelitel_Mode_Life = _scanner.nextInt();
 
-            switch (Opredelitel_Mode_Life){
+            switch (Opredelitel_Mode_Life)
+            {
 
                 case 1:
                     activityCoeff = 1.2f;
