@@ -6,7 +6,7 @@ import For_Products.Product.Product;
 import java.sql.*;
 import java.util.*;
 
-public class Database implements IReceived, Iterable<Product>
+public class Database implements Iterable<Product>
 {
     String url, sql;
     private int size = 0;
@@ -36,7 +36,7 @@ public class Database implements IReceived, Iterable<Product>
 
         connection = DriverManager.getConnection(url, authorization);
     }
-    public List<Product> Select()
+    public List<Product> Select(String sql)
     {
         try (Statement _statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                 ResultSet.CONCUR_UPDATABLE))
