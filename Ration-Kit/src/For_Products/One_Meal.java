@@ -20,6 +20,11 @@ public class One_Meal implements Iterable<Product>{
         Dinner;
     }
 
+    public One_Meal(Type_Of_Meal type)
+    {
+        this.typeOfMeal = type;
+    }
+
     public void Create_Meal(List<Product> _basic_product, List<Product> _garnish_product,
                             List<Product> _adition_product, Human _Human, List<One_Meal> meals_in_day){
         Random rand = new Random();
@@ -68,7 +73,8 @@ public class One_Meal implements Iterable<Product>{
         kilocalories = protein*4 + carbohydrates*4+ fats*4;
     }
 
-    void Balance_Products_In_Meal(List<Product> _basic_product, List<Product> _garnish_product, List<Product> _adition_product, List<One_Meal> meals_in_day){
+    void Balance_Products_In_Meal(List<Product> _basic_product, List<Product> _garnish_product,
+                                  List<Product> _adition_product, List<One_Meal> meals_in_day){
         Random rand  = new Random();
         float product_gramm = 0;
         protein =0;

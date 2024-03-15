@@ -25,15 +25,11 @@ public class Main
 
 /////////////////////////////////////////  
 
-        Meals_in_day.add(new One_Meal());
-        Meals_in_day.add(new One_Meal());
-        Meals_in_day.add(new One_Meal());
-        Meals_in_day.get(0).SetTypeMeal(One_Meal.Type_Of_Meal.Breakfast);
-        Meals_in_day.get(1).SetTypeMeal(One_Meal.Type_Of_Meal.Lunch);
-        Meals_in_day.get(2).SetTypeMeal(One_Meal.Type_Of_Meal.Dinner);
+        Meals_in_day.add(new One_Meal(One_Meal.Type_Of_Meal.Breakfast));
+        Meals_in_day.add(new One_Meal(One_Meal.Type_Of_Meal.Lunch));
+        Meals_in_day.add(new One_Meal(One_Meal.Type_Of_Meal.Dinner));
 
 /////////////////////////////////////////////////////////
-        Fill_Product_List();
         Enter_Data_For_Person();
 
         for(int i=0; i<Meals_in_day.size(); i++){
@@ -66,9 +62,6 @@ public class Main
         System.out.println("Общее количетсво жиров за день: " + day_fats);
         System.out.println("Общее количетсво углеводов за день: " + day_carbonohydrates);
         System.out.println("Общее количетсво ккал за приём день: " + day_kilocalories+ "\n\n\n");
-
-
-
     }
 
     private static void Enter_Data_For_Person()
@@ -279,6 +272,4 @@ public class Main
 
        }
    }
-
-   
 }
