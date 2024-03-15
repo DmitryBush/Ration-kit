@@ -20,7 +20,8 @@ public class Product  {
     }
 
 
-    public void Take_PFC_In_Base(String _name, float _protein, float _fats, float _carbohydrates, Original _original, Type_Product _type, float _max_gramm) {
+    public void Take_PFC_In_Base(String _name, float _protein, float _fats, float _carbohydrates,
+                                 Original _original, Type_Product _type, float _max_gramm) {
 
         Name = _name;
         kilocalories = _protein*4 + _carbohydrates*4 + _fats*9;

@@ -1,18 +1,17 @@
+import Database.Directory;
 import For_Products.One_Meal;
 import For_Products.Product.Product;
-import Human.Human;
 import Human.Gender;
 import Human.GenderException;
+import Human.Human;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main
 {
     static Scanner _scanner = new Scanner(System.in);
-    public static Human mainHuman = new Human();
+    public static Human mainHuman;
+    public static Directory directory = new Directory();
 
     public static List<Product> Basic_Products = new ArrayList<Product>();
     public static List<Product> Garnish_Products = new ArrayList<Product>();
@@ -22,29 +21,30 @@ public class Main
 
     static float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
 
-    public static void main(String[] args) throws GenderException {
+    public static void main(String[] args){
 
 /////////////////////////////////////////  
 
-        Meals_in_day.add(new One_Meal());
-        Meals_in_day.add(new One_Meal());
-        Meals_in_day.add(new One_Meal());
-        Meals_in_day.get(0).SetTypeMeal(One_Meal.Type_Of_Meal.Breakfast);
-        Meals_in_day.get(1).SetTypeMeal(One_Meal.Type_Of_Meal.Lunch);
-        Meals_in_day.get(2).SetTypeMeal(One_Meal.Type_Of_Meal.Dinner);
+        Meals_in_day.add(new One_Meal(One_Meal.Type_Of_Meal.Breakfast));
+        Meals_in_day.add(new One_Meal(One_Meal.Type_Of_Meal.Lunch));
+        Meals_in_day.add(new One_Meal(One_Meal.Type_Of_Meal.Dinner));
 
 /////////////////////////////////////////////////////////
-        Fill_Product_List();
         Enter_Data_For_Person();
 
         for(int i=0; i<Meals_in_day.size(); i++){
-            Meals_in_day.get(i).Create_Meal(Basic_Products, Garnish_Products, Adition_Products, mainHuman, Meals_in_day);
+            Meals_in_day.get(i).Create_Meal(directory.getBasic_Products(),
+                    directory.getGarnish_Products(), directory.getAddition_Products(), mainHuman, Meals_in_day);
             System.out.println(Meals_in_day.get(i).typeOfMeal);
             for(int j=0; j< Meals_in_day.get(i).products.size(); j++){
                 System.out.println("Продукт: " + Meals_in_day.get(i).products.get(j).Name + "\t");
-                System.out.println("БЖУ продукта: " + Meals_in_day.get(i).products.get(j).protein + " "+ Meals_in_day.get(i).products.get(j).fats+ " " + Meals_in_day.get(i).products.get(j).carbohydrates + "\t");
-                System.out.println("Вегетарианский ли продукт: " + Meals_in_day.get(i).products.get(j).original+ "\t");
-                System.out.println("Количество данного продукта: " + Meals_in_day.get(i).products.get(j).cur_count_gramm + "\n");
+                System.out.println("БЖУ продукта: " + Meals_in_day.get(i).products.get(j).protein
+                        + " "+ Meals_in_day.get(i).products.get(j).fats
+                        + " " + Meals_in_day.get(i).products.get(j).carbohydrates + "\t");
+                System.out.println("Вегетарианский ли продукт: "
+                        + Meals_in_day.get(i).products.get(j).original + "\t");
+                System.out.println("Количество данного продукта: "
+                        + Meals_in_day.get(i).products.get(j).cur_count_gramm + "\n");
 
             }
             day_protein +=Meals_in_day.get(i).protein;
@@ -62,67 +62,101 @@ public class Main
         System.out.println("Общее количетсво жиров за день: " + day_fats);
         System.out.println("Общее количетсво углеводов за день: " + day_carbonohydrates);
         System.out.println("Общее количетсво ккал за приём день: " + day_kilocalories+ "\n\n\n");
-
-
-
     }
 
-    private static void Enter_Data_For_Person() throws GenderException {
+    private static void Enter_Data_For_Person()
+    {
+        Integer age = 0, Opredelitel_Mode_Life = 0;
+        Float height = 0.f, weight = 0.f;
+        float activityCoeff;
 
-        int age;
-        float height, weight, activityCoeff=0;
-        int Opredelitel_Mode_Life;
+        Gender gender = Gender.Male;
 
-        Gender gender;
+        age = (Integer) EnterFromKeyboard("Сколько тебе лет:", age.getClass().getSimpleName());
+        height = (Float) EnterFromKeyboard("Введи рост", height.getClass().getSimpleName());
+        weight = (Float) EnterFromKeyboard("Введи вес", weight.getClass().getSimpleName());
+        Opredelitel_Mode_Life = (Integer) EnterFromKeyboard("Какой образ жизни ты ведёшь:\n" +
+                "1) Минимальная физическая нагрузка \n" +
+                "2) Тренировки средней тяжести 2-3 раза в неделю\n" +
+                "3) Интенсивные тренировки более 3 раз в неделю\n" +
+                "4) Ежедневная физическая нагрузка\n" +
+                "(Введите номер)\n", Opredelitel_Mode_Life.getClass().getSimpleName());
+        gender = (Gender) EnterFromKeyboard("Определите свой пол:\n" +
+                "1) Мужчина\n" +
+                "2) Женщина", gender.getClass().getSimpleName());
 
-        while (true){
-            System.out.println("Сколько тебе лет:");
-            age = _scanner.nextInt();
-            System.out.println("Введи рост");
-            height = _scanner.nextFloat();
-            System.out.println("Введи вес");
-            weight = _scanner.nextFloat();
-            System.out.println("1) Мужчина");
-            System.out.println("2) Женщина");
-            Opredelitel_Mode_Life = _scanner.nextInt();
-            if(Opredelitel_Mode_Life ==1){
-                gender = Gender.Male;
-            }
+        switch (Opredelitel_Mode_Life)
+        {
+            default:
+            case 1:
+                activityCoeff = 1.2f;
+                break;
+            case 2:
+                activityCoeff = 1.4f;
+                break;
+            case 3:
+                activityCoeff = 1.6f;
+                break;
+            case 4:
+                activityCoeff = 1.8f;
+                break;
 
-            else{
-                gender = Gender.Female;
-            }
-
-            System.out.println("Какой образ жизни ты ведёшь:\n" +
-                    "1) Минимальная физическая нагрузка \n" +
-                    "2) Тренировки средней тяжести 2-3 раза в неделю\n" +
-                    "3) Интенсивные тренировки более 3 раз в неделю\n" +
-                    "4) Ежедневная физическая нагрузка\n" +
-                    "(Введите номер)\n");
-
-            Opredelitel_Mode_Life = _scanner.nextInt();
-
-            switch (Opredelitel_Mode_Life){
-
-                case 1:
-                    activityCoeff = 1.2f;
-                    break;
-
-                case 2:
-                    activityCoeff = 1.4f;
-                    break;
-                case 3:
-                    activityCoeff = 1.6f;
-                    break;
-                case 4:
-                    activityCoeff = 1.8f;
-                    break;
-
-            }
-            mainHuman = Human.Human(age,height,weight, activityCoeff, gender);
-            break;
         }
-
+        mainHuman = Human.Human(age,height,weight, activityCoeff, gender);
+    }
+    private static Object EnterFromKeyboard(String message, String datatype)
+    {
+        System.out.println(message);
+        while (true)
+        {
+            switch (datatype)
+            {
+                case "Integer":
+                {
+                    if (_scanner.hasNextInt())
+                        return _scanner.nextInt();
+                    else
+                        System.out.println(message);
+                    break;
+                }
+                case "Float":
+                {
+                    if (_scanner.hasNextFloat())
+                        return _scanner.nextFloat();
+                    else
+                        System.out.println(message);
+                    break;
+                }
+                case "Gender":
+                {
+                    if (_scanner.hasNextInt())
+                    {
+                        try
+                        {
+                            switch (_scanner.nextInt())
+                            {
+                                case 1 ->
+                                {
+                                    return Gender.Male;
+                                }
+                                case 2 ->
+                                {
+                                    return Gender.Female;
+                                }
+                                default -> throw new GenderException("Unknown gender");
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            System.out.println(e.getMessage() + "\n" + message);
+                        }
+                    }
+                    else
+                        System.out.println(message);
+                    break;
+                }
+            }
+        }
     }
 
    static void Fill_Product_List(){
@@ -238,6 +272,4 @@ public class Main
 
        }
    }
-
-   
 }
