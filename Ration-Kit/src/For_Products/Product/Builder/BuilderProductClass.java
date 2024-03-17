@@ -1,4 +1,8 @@
-package For_Products.Product;
+package For_Products.Product.Builder;
+
+import For_Products.Product.Original;
+import For_Products.Product.Product;
+import For_Products.Product.Type_Product;
 
 public class BuilderProductClass implements ProductBuilder
 {
@@ -11,14 +15,14 @@ public class BuilderProductClass implements ProductBuilder
     }
 
     @Override
-    public BuilderProductClass SetOriginal(Product.Original original)
+    public BuilderProductClass SetOriginal(Original original)
     {
         _product.setOriginal(original);
         return this;
     }
 
     @Override
-    public BuilderProductClass SetTypeProduct(Product.Type_Product typeProduct)
+    public BuilderProductClass SetTypeProduct(Type_Product typeProduct)
     {
         _product.setType_product(typeProduct);
         return this;
