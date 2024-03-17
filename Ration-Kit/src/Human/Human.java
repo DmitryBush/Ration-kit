@@ -6,27 +6,28 @@ public class Human
     private static Human instance = null;
     // Calculated ration values
     private float kilocalories, protein, fats, carbohydrates;
+    private MealsNumber mealsNumber;
 
 
     private Human(int age, float height, float weight,
-                 float activityCoefficient, Gender gender)
+                 float activityCoefficient, Gender gender, MealsNumber quantity)
     {
         kilocalories = CalculateKilocalories(age, height, weight, activityCoefficient, gender);
         CalculateSFC();
     }
 
     public static Human Human(int age, float height, float weight,
-                              float activityCoefficient, Gender gender)
+                              float activityCoefficient, Gender gender, MealsNumber quantity)
     {
         if (instance == null)
-            instance = new Human(age, height, weight, activityCoefficient, gender);
+            instance = new Human(age, height, weight, activityCoefficient, gender, quantity);
         return instance;
     }
     public static synchronized Human GetInstance(int age, float height, float weight,
-                                                 float activityCoefficient, Gender gender)
+                                                 float activityCoefficient, Gender gender, MealsNumber quantity)
     {
         if (instance == null)
-            instance = new Human(age, height, weight, activityCoefficient, gender);
+            instance = new Human(age, height, weight, activityCoefficient, gender, quantity);
         return instance;
     }
     public static synchronized Human GetInstance()
@@ -80,5 +81,9 @@ public class Human
 
     public float getCarbohydrates() {
         return carbohydrates;
+    }
+
+    public MealsNumber getMealsNumber() {
+        return mealsNumber;
     }
 }

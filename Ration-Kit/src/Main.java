@@ -4,6 +4,7 @@ import For_Products.Product.Product;
 import Human.Gender;
 import Human.GenderException;
 import Human.Human;
+import Human.MealsNumber;
 import java.sql.*;
 import java.util.*;
 
@@ -68,9 +69,10 @@ public class Main
     {
         Integer age = 0, Opredelitel_Mode_Life = 0;
         Float height = 0.f, weight = 0.f;
-        float activityCoeff;
+        float activityCoefficient;
 
         Gender gender = Gender.Male;
+        MealsNumber foodQuantity = MealsNumber.three;
 
         age = (Integer) EnterFromKeyboard("Сколько тебе лет:", age.getClass().getSimpleName());
         height = (Float) EnterFromKeyboard("Введи рост", height.getClass().getSimpleName());
@@ -84,25 +86,30 @@ public class Main
         gender = (Gender) EnterFromKeyboard("Определите свой пол:\n" +
                 "1) Мужчина\n" +
                 "2) Женщина", gender.getClass().getSimpleName());
+        foodQuantity = (MealsNumber) EnterFromKeyboard("Выберите интервальную диету\n" +
+                "1) Без интервальной диеты" +
+                "2) 16/8 - Двухразовое питание\n" +
+                "3) 24/0 - Одноразовое питание\n", foodQuantity.getClass().getSimpleName());
+
 
         switch (Opredelitel_Mode_Life)
         {
             default:
             case 1:
-                activityCoeff = 1.2f;
+                activityCoefficient = 1.2f;
                 break;
             case 2:
-                activityCoeff = 1.4f;
+                activityCoefficient = 1.4f;
                 break;
             case 3:
-                activityCoeff = 1.6f;
+                activityCoefficient = 1.6f;
                 break;
             case 4:
-                activityCoeff = 1.8f;
+                activityCoefficient = 1.8f;
                 break;
-
         }
-        mainHuman = Human.Human(age,height,weight, activityCoeff, gender);
+
+        mainHuman = Human.Human(age,height,weight, activityCoefficient, gender, foodQuantity);
     }
     private static Object EnterFromKeyboard(String message, String datatype)
     {
@@ -143,7 +150,41 @@ public class Main
                                 {
                                     return Gender.Female;
                                 }
-                                default -> throw new GenderException("Unknown gender");
+                                default -> throw new GenderException("Неизвестный гендер\n" +
+                                        "Попробуйте ввести еще раз");
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            System.out.println(e.getMessage() + "\n" + message);
+                        }
+                    }
+                    else
+                        System.out.println(message);
+                    break;
+                }
+                case "MealsNumber":
+                {
+                    if (_scanner.hasNextInt())
+                    {
+                        try
+                        {
+                            switch (_scanner.nextInt())
+                            {
+                                case 1 ->
+                                {
+                                    return MealsNumber.three;
+                                }
+                                case 2 ->
+                                {
+                                    return MealsNumber.Two;
+                                }
+                                case 3 ->
+                                {
+                                    return MealsNumber.One;
+                                }
+                                default -> throw new RuntimeException("Неизвестная интервальная диета\n" +
+                                        "Попробуйте ввести еще раз");
                             }
                         }
                         catch (Exception e)
