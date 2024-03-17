@@ -20,6 +20,7 @@ public class One_Meal implements Iterable<Product>{
         Dinner;
     }
 
+
     public One_Meal(Type_Of_Meal type)
     {
         this.typeOfMeal = type;
@@ -59,6 +60,8 @@ public class One_Meal implements Iterable<Product>{
         Calculate_PFC(products);
     }
 
+
+
     void Calculate_PFC(List<Product> productList){
         protein =0;
         fats=0;
@@ -82,36 +85,66 @@ public class One_Meal implements Iterable<Product>{
         carbohydrates=0;
         kilocalories =0;
 
-        for (int i=0; i<products.size();i++){
-            if (products.get(i).Type_product == Product.Type_Product.Garnish){
-                product_gramm =(rand.nextFloat(max_carbohydrates*0.7f, max_carbohydrates*0.8f)/(products.get(i).carbohydrates/100));
-                if(product_gramm > products.get(i).max_gramm){
-                    product_gramm =  products.get(i).max_gramm;
+        if(!Check_on_Special_Diet(meals_in_day)){
+            System.out.println("Standart");
+            for (int i=0; i<products.size();i++){
+                if (products.get(i).Type_product == Product.Type_Product.Garnish){
+                    product_gramm =(rand.nextFloat(max_carbohydrates*0.7f, max_carbohydrates*0.8f)/(products.get(i).carbohydrates/100));
+                    if(product_gramm > products.get(i).max_gramm){
+                        product_gramm =  products.get(i).max_gramm;
+                    }
+                    products.get(i).cur_count_gramm = product_gramm;
+                    Calculate_PFC(products);
                 }
-                products.get(i).cur_count_gramm = product_gramm;
-                Calculate_PFC(products);
-            }
-            else if (products.get(i).Type_product == Product.Type_Product.Basic){
-                product_gramm = (max_protein - protein) / (products.get(i).protein/100);
-                if(product_gramm > products.get(i).max_gramm){
-                    product_gramm =  products.get(i).max_gramm;
+                else if (products.get(i).Type_product == Product.Type_Product.Basic){
+                    product_gramm = (max_protein - protein) / (products.get(i).protein/100);
+                    if(product_gramm > products.get(i).max_gramm){
+                        product_gramm =  products.get(i).max_gramm;
+                    }
+                    products.get(i).cur_count_gramm = product_gramm;
+                    Calculate_PFC(products);
                 }
-                products.get(i).cur_count_gramm = product_gramm;
-                Calculate_PFC(products);
-            }
-            else if (products.get(i).Type_product == Product.Type_Product.Adition){
-                product_gramm = (max_kilocalories-kilocalories) / ((products.get(2).protein *4 /100) +  (products.get(i).carbohydrates *4 /100) + (products.get(i).fats *9 /100));;
-                if(product_gramm > products.get(i).max_gramm){
-                    product_gramm =  products.get(i).max_gramm;
+                else if (products.get(i).Type_product == Product.Type_Product.Adition){
+                    product_gramm = (max_kilocalories-kilocalories) / ((products.get(2).protein *4 /100) +  (products.get(i).carbohydrates *4 /100) + (products.get(i).fats *9 /100));;
+                    if(product_gramm > products.get(i).max_gramm){
+                        product_gramm =  products.get(i).max_gramm;
+                    }
+                    products.get(i).cur_count_gramm = product_gramm;
+                    Calculate_PFC(products);
                 }
-                products.get(i).cur_count_gramm = product_gramm;
-                Calculate_PFC(products);
             }
         }
-        /*if(max_kilocalories/kilocalories < 0.9){
-            AddProduct(Check_On_New_Product(_adition_product, meals_in_day));
-            Balance_Products_In_Meal(_basic_product, _garnish_product, _adition_product, meals_in_day);
-        }*/
+
+        else {
+            for (int i=0; i<products.size();i++){
+                if (products.get(i).Type_product == Product.Type_Product.Basic){
+                    product_gramm =(rand.nextFloat(max_protein*0.9f, max_protein*0.95f)/(products.get(i).protein/100));
+                    if(product_gramm > products.get(i).max_gramm){
+                        product_gramm =  products.get(i).max_gramm;
+                    }
+                    products.get(i).cur_count_gramm = product_gramm;
+                    Calculate_PFC(products);
+                }
+
+                else if (products.get(i).Type_product == Product.Type_Product.Garnish){
+                    product_gramm =(rand.nextFloat(max_carbohydrates*0.7f, max_carbohydrates*0.8f)/(products.get(i).carbohydrates/100));
+                    if(product_gramm > products.get(i).max_gramm){
+                        product_gramm =  products.get(i).max_gramm;
+                    }
+                    products.get(i).cur_count_gramm = product_gramm;
+                    Calculate_PFC(products);
+                }
+
+                else if (products.get(i).Type_product == Product.Type_Product.Adition){
+                    product_gramm = (max_kilocalories-kilocalories) / ((products.get(2).protein *4 /100) +  (products.get(i).carbohydrates *4 /100) + (products.get(i).fats *9 /100));;
+                    if(product_gramm > products.get(i).max_gramm){
+                        product_gramm =  products.get(i).max_gramm;
+                    }
+                    products.get(i).cur_count_gramm = product_gramm;
+                    Calculate_PFC(products);
+                }
+            }
+        }
 
 
     }
@@ -119,12 +152,14 @@ public class One_Meal implements Iterable<Product>{
     public void SetTypeMeal(Type_Of_Meal _type){
         typeOfMeal = _type;
     }
-
-
+    public Type_Of_Meal GetTypeMeal(){
+        return typeOfMeal;
+    }
     public void AddProduct(Product product)
     {
         products.add(product);
     }
+
     public void RemoveProduct(Product product)
     {
         products.remove(product);
@@ -139,7 +174,7 @@ public class One_Meal implements Iterable<Product>{
         while (true){
             Rand = rand.nextInt(list_product.size());
             product = list_product.get(Rand);
-            System.out.println(product.Name);
+           // System.out.println(product.Name);
 
             for(int i =0; i<meals_in_day.size(); i++){
                 for (int j=0; j< meals_in_day.get(i).products.size(); j++){
@@ -162,6 +197,15 @@ public class One_Meal implements Iterable<Product>{
             }
         }
         return product;
+    }
+
+    Boolean Check_on_Special_Diet(List<One_Meal> mealList){
+        for(int i=0; i< mealList.size(); i++){
+            if(mealList.get(i).GetTypeMeal() == Type_Of_Meal.Breakfast){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -187,4 +231,7 @@ public class One_Meal implements Iterable<Product>{
             }
         };
     }
+
+
+
 }
