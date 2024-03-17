@@ -35,7 +35,7 @@ public class Main
 
         for(int i=0; i<Meals_in_day.size(); i++){
             Meals_in_day.get(i).Create_Meal(directory.getBasic_Products(),
-                    directory.getGarnish_Products(), directory.getAddition_Products(), mainHuman, Meals_in_day);
+                    directory.getGarnish_Products(), directory.getAddition_Products(), Meals_in_day);
             System.out.println(Meals_in_day.get(i).typeOfMeal);
             for(int j=0; j< Meals_in_day.get(i).products.size(); j++){
                 System.out.println("Продукт: " + Meals_in_day.get(i).products.get(j).Name + "\t");
@@ -87,7 +87,7 @@ public class Main
                 "1) Мужчина\n" +
                 "2) Женщина", gender.getClass().getSimpleName());
         foodQuantity = (MealsNumber) EnterFromKeyboard("Выберите интервальную диету\n" +
-                "1) Без интервальной диеты" +
+                "1) Без интервальной диеты\n" +
                 "2) 16/8 - Двухразовое питание\n" +
                 "3) 24/0 - Одноразовое питание\n", foodQuantity.getClass().getSimpleName());
 

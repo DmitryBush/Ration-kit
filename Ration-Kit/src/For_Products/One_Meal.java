@@ -5,8 +5,8 @@ import Human.Human;
 
 import java.util.*;
 
-public class One_Meal implements Iterable<Product>{
-
+public class One_Meal implements Iterable<Product>
+{
     public float kilocalories, protein, fats, carbohydrates;
     public float max_protein, max_fats, max_carbohydrates, max_kilocalories;
 
@@ -17,7 +17,7 @@ public class One_Meal implements Iterable<Product>{
     public enum Type_Of_Meal {
         Breakfast,
         Lunch,
-        Dinner;
+        Dinner
     }
 
     public One_Meal(Type_Of_Meal type)
@@ -26,36 +26,33 @@ public class One_Meal implements Iterable<Product>{
     }
 
     public void Create_Meal(List<Product> _basic_product, List<Product> _garnish_product,
-                            List<Product> _adition_product, Human _Human, List<One_Meal> meals_in_day){
-        Random rand = new Random();
-        int INT_Rand;
-        Product _product = new Product();
-        float count_gramm_product;
+                            List<Product> _adition_product, List<One_Meal> meals_in_day){
+        //Random rand = new Random();
+        Human _Human = Human.GetInstance();
+//        int INT_Rand;
+//        Product _product = new Product();
+//        float count_gramm_product;
 
-        switch (typeOfMeal){
-            case Breakfast:
+        switch (typeOfMeal)
+        {
+            case Breakfast, Dinner:
                 max_fats = _Human.getFats() * 0.3f;
                 max_carbohydrates = _Human.getCarbohydrates() * 0.3f;
-                max_protein = _Human.getProtein()* 0.3f;
+                max_protein = _Human.getProtein() * 0.3f;
                 break;
             case Lunch:
                 max_fats = _Human.getFats() * 0.4f;
-                max_carbohydrates = _Human.getCarbohydrates()* 0.4f;
-                max_protein = _Human.getProtein()* 0.4f;
-                break;
-            case Dinner:
-                max_fats = _Human.getFats()* 0.3f;
-                max_carbohydrates = _Human.getCarbohydrates()* 0.3f;
-                max_protein = _Human.getProtein()* 0.3f;
+                max_carbohydrates = _Human.getCarbohydrates() * 0.4f;
+                max_protein = _Human.getProtein() * 0.4f;
                 break;
         }
 
-        max_kilocalories = max_protein*4 + max_carbohydrates*4 + max_fats*9;
+        max_kilocalories = max_protein * 4 + max_carbohydrates * 4 + max_fats * 9;
 
         AddProduct(Check_On_New_Product(_garnish_product,  meals_in_day));
         AddProduct(Check_On_New_Product(_basic_product,  meals_in_day));
         AddProduct(Check_On_New_Product(_adition_product,  meals_in_day));
-        Balance_Products_In_Meal( _basic_product, _garnish_product, _adition_product, meals_in_day);
+        Balance_Products_In_Meal(_basic_product, _garnish_product, _adition_product, meals_in_day);
         Calculate_PFC(products);
     }
 
