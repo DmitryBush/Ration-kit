@@ -1,4 +1,6 @@
-package For_Products.Product;
+package For_Products.Product.Builder;
+
+import For_Products.Product.Product;
 
 public interface ProductBuilder
 {

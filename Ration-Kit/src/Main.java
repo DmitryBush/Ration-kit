@@ -1,13 +1,11 @@
 import Database.Directory;
-import For_Products.One_Meal;
 import For_Products.Product.DietPlan;
 
-import For_Products.Product.Product;
+import For_Products.Product.Type_of_Diet;
 import Human.Gender;
 import Human.GenderException;
 import Human.Human;
-import Human.MealsNumber;
-import java.sql.*;
+
 import java.util.*;
 
 public class Main
@@ -18,15 +16,12 @@ public class Main
 
     public static DietPlan _diet_plan = new DietPlan();
 
-    static DietPlan.Type_of_Diet dietplane = DietPlan.Type_of_Diet.diet_regular ;
-
 
     public static void main(String[] args){
 
         Enter_Data_For_Person();
-        _diet_plan.Create_Day_Diet(dietplane,directory.getBasic_Products(),
-                directory.getGarnish_Products(), directory.getAddition_Products(), mainHuman);
-        _diet_plan.Show_Racion_OnDay();
+        _diet_plan.Create_Day_Diet(directory);
+        _diet_plan.Show_Ration_OnDay();
     }
 
     private static void Enter_Data_For_Person()
@@ -37,7 +32,7 @@ public class Main
 
 
         Gender gender = Gender.Male;
-        MealsNumber foodQuantity = MealsNumber.three;
+        Type_of_Diet dietplane = Type_of_Diet.diet_regular;
 
         age = (Integer) EnterFromKeyboard("Сколько тебе лет:", age.getClass().getSimpleName());
         height = (Float) EnterFromKeyboard("Введи рост", height.getClass().getSimpleName());
@@ -51,13 +46,9 @@ public class Main
         gender = (Gender) EnterFromKeyboard("Определите свой пол:\n" +
                 "1) Мужчина\n" +
                 "2) Женщина", gender.getClass().getSimpleName());
-        foodQuantity = (MealsNumber) EnterFromKeyboard("Выберите интервальную диету\n" +
-                "1) Без интервальной диеты\n" +
-                "2) 16/8 - Двухразовое питание\n" +
-                "3) 24/0 - Одноразовое питание\n", foodQuantity.getClass().getSimpleName());
 
 
-        dietplane = (DietPlan.Type_of_Diet) EnterFromKeyboard("Определите нужный вам план диеты:\n" +
+        dietplane = (Type_of_Diet) EnterFromKeyboard("Определите нужный вам план диеты:\n" +
                 "1) Обычный режим питания\n" + "2) Диета 15/9 \n" + "3) Диета 20/4\n" + "4) Диета 24/0\n"
                 , dietplane.getClass().getSimpleName());
 
@@ -77,7 +68,7 @@ public class Main
                 activityCoefficient = 1.8f;
                 break;
         }
-        mainHuman = Human.Human(age,height,weight, activityCoefficient, gender, foodQuantity);
+        mainHuman = Human.Human(age,height,weight, activityCoefficient, gender, dietplane);
     }
 
     private static Object EnterFromKeyboard(String message, String datatype)
@@ -114,20 +105,20 @@ public class Main
                             {
                                 case 1 ->
                                 {
-                                    return DietPlan.Type_of_Diet.diet_regular;
+                                    return Type_of_Diet.diet_regular;
                                 }
                                 case 2 ->
                                 {
-                                    return DietPlan.Type_of_Diet.diet_16_8;
+                                    return Type_of_Diet.diet_16_8;
                                 }
 
                                 case 3 ->
                                 {
-                                    return DietPlan.Type_of_Diet.diet_20_4;
+                                    return Type_of_Diet.diet_20_4;
                                 }
                                 case 4 ->
                                 {
-                                    return DietPlan.Type_of_Diet.diet_24_0;
+                                    return Type_of_Diet.diet_24_0;
                                 }
                                 default -> throw new RuntimeException("Неизвестная интервальная диета\n" +
                                         "Попробуйте ввести еще раз");

@@ -1,33 +1,36 @@
 package Human;
 
+import For_Products.Product.Type_of_Diet;
+
 public class Human
 {
     // Static instance of a class
     private static Human instance = null;
     // Calculated ration values
     private float kilocalories, protein, fats, carbohydrates;
-    private MealsNumber mealsNumber;
+    private Type_of_Diet _Type_Diet;
 
 
     private Human(int age, float height, float weight,
-                 float activityCoefficient, Gender gender, MealsNumber quantity)
+                 float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)
     {
+        this._Type_Diet = _Type_Diet;
         kilocalories = CalculateKilocalories(age, height, weight, activityCoefficient, gender);
         CalculateSFC();
     }
 
     public static Human Human(int age, float height, float weight,
-                              float activityCoefficient, Gender gender, MealsNumber quantity)
+                              float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)
     {
         if (instance == null)
-            instance = new Human(age, height, weight, activityCoefficient, gender, quantity);
+            instance = new Human(age, height, weight, activityCoefficient, gender, _Type_Diet);
         return instance;
     }
     public static synchronized Human GetInstance(int age, float height, float weight,
-                                                 float activityCoefficient, Gender gender, MealsNumber quantity)
+                                                 float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)
     {
         if (instance == null)
-            instance = new Human(age, height, weight, activityCoefficient, gender, quantity);
+            instance = new Human(age, height, weight, activityCoefficient, gender, _Type_Diet);
         return instance;
     }
     public static synchronized Human GetInstance()
@@ -83,7 +86,7 @@ public class Human
         return carbohydrates;
     }
 
-    public MealsNumber getMealsNumber() {
-        return mealsNumber;
+    public Type_of_Diet getTypeDiet() {
+        return _Type_Diet;
     }
 }

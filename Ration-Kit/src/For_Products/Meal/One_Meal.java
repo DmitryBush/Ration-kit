@@ -1,80 +1,53 @@
-package For_Products;
+package For_Products.Meal;
 
+import Database.Directory;
+import For_Products.Meal.Visitor.MealVisitor;
 import For_Products.Product.Product;
+import For_Products.Product.Type_of_Diet;
 import Human.Human;
 
 import java.util.*;
 
-public class One_Meal implements Iterable<Product>
+public abstract class One_Meal implements Iterable<Product>
 {
-    public float kilocalories, protein, fats, carbohydrates;
-    public float max_protein, max_fats, max_carbohydrates, max_kilocalories;
+    private float kilocalories, protein, fats, carbohydrates;
+    protected float max_protein, max_fats, max_carbohydrates, max_kilocalories;
 
 
-    public Type_Of_Meal typeOfMeal;
-    public List<Product> products = new ArrayList<>();
-
-    public enum Type_Of_Meal {
-        Breakfast,
-        Lunch,
-        Dinner
-    }
+    //protected Type_Of_Meal typeOfMeal;
+    protected List<Product> products = new ArrayList<>();
 
 
-    public One_Meal(Type_Of_Meal type)
+//    public One_Meal(Type_Of_Meal type)
+//    {
+//        this.typeOfMeal = type;
+//    }
+    public abstract void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor);
+
+    protected void CreatePlan(Directory directory, List<One_Meal> meals_in_day)
     {
-        this.typeOfMeal = type;
+        AddProduct(Check_On_New_Product(directory.getGarnish_Products(),  meals_in_day));
+        AddProduct(Check_On_New_Product(directory.getBasic_Products(),  meals_in_day));
+        AddProduct(Check_On_New_Product(directory.getAddition_Products(),  meals_in_day));
+        Balance_Products_In_Meal();
+        Calculate_PFC();
     }
 
-    public void Create_Meal(List<Product> _basic_product, List<Product> _garnish_product,
-                            List<Product> _adition_product, List<One_Meal> meals_in_day){
-        //Random rand = new Random();
-        Human _Human = Human.GetInstance();
-//        int INT_Rand;
-//        Product _product = new Product();
-//        float count_gramm_product;
-
-        switch (typeOfMeal)
-        {
-            case Breakfast, Dinner:
-                max_fats = _Human.getFats() * 0.3f;
-                max_carbohydrates = _Human.getCarbohydrates() * 0.3f;
-                max_protein = _Human.getProtein() * 0.3f;
-                break;
-            case Lunch:
-                max_fats = _Human.getFats() * 0.4f;
-                max_carbohydrates = _Human.getCarbohydrates() * 0.4f;
-                max_protein = _Human.getProtein() * 0.4f;
-                break;
-        }
-
-        max_kilocalories = max_protein * 4 + max_carbohydrates * 4 + max_fats * 9;
-
-        AddProduct(Check_On_New_Product(_garnish_product,  meals_in_day));
-        AddProduct(Check_On_New_Product(_basic_product,  meals_in_day));
-        AddProduct(Check_On_New_Product(_adition_product,  meals_in_day));
-        Balance_Products_In_Meal(_basic_product, _garnish_product, _adition_product, meals_in_day);
-        Calculate_PFC(products);
-    }
-
-
-
-    void Calculate_PFC(List<Product> productList){
+    void Calculate_PFC(){
         protein =0;
         fats=0;
         carbohydrates=0;
-        kilocalories = 0;
-        for (int i=0; i<productList.size(); i++){
-            protein += productList.get(i).protein/100  * productList.get(i).cur_count_gramm ;
-            fats +=  productList.get(i).fats/100 * productList.get(i).cur_count_gramm ;
-            carbohydrates +=  productList.get(i).carbohydrates/100 * productList.get(i).cur_count_gramm ;
+
+        for (int i=0; i<products.size(); i++){
+            protein += products.get(i).protein/100  * products.get(i).cur_count_gramm ;
+            fats +=  products.get(i).fats/100 * products.get(i).cur_count_gramm ;
+            carbohydrates +=  products.get(i).carbohydrates/100 * products.get(i).cur_count_gramm ;
         }
 
         kilocalories = protein*4 + carbohydrates*4+ fats*4;
     }
 
-    void Balance_Products_In_Meal(List<Product> _basic_product, List<Product> _garnish_product,
-                                  List<Product> _adition_product, List<One_Meal> meals_in_day){
+    void Balance_Products_In_Meal(){
         Random rand  = new Random();
         float product_gramm = 0;
         protein =0;
@@ -82,16 +55,17 @@ public class One_Meal implements Iterable<Product>
         carbohydrates=0;
         kilocalories =0;
 
-        if(!Check_on_Special_Diet(meals_in_day)){
+        if(!Check_on_Special_Diet(Human.GetInstance().getTypeDiet())){
             System.out.println("Standart");
             for (int i=0; i<products.size();i++){
                 if (products.get(i).Type_product == Product.Type_Product.Garnish){
-                    product_gramm =(rand.nextFloat(max_carbohydrates*0.7f, max_carbohydrates*0.8f)/(products.get(i).carbohydrates/100));
+                    product_gramm =(rand.nextFloat(max_carbohydrates*0.7f,
+                            max_carbohydrates*0.8f)/(products.get(i).carbohydrates/100));
                     if(product_gramm > products.get(i).max_gramm){
                         product_gramm =  products.get(i).max_gramm;
                     }
                     products.get(i).cur_count_gramm = product_gramm;
-                    Calculate_PFC(products);
+                    Calculate_PFC();
                 }
                 else if (products.get(i).Type_product == Product.Type_Product.Basic){
                     product_gramm = (max_protein - protein) / (products.get(i).protein/100);
@@ -99,7 +73,7 @@ public class One_Meal implements Iterable<Product>
                         product_gramm =  products.get(i).max_gramm;
                     }
                     products.get(i).cur_count_gramm = product_gramm;
-                    Calculate_PFC(products);
+                    Calculate_PFC();
                 }
                 else if (products.get(i).Type_product == Product.Type_Product.Adition){
                     product_gramm = (max_kilocalories-kilocalories) / ((products.get(2).protein *4 /100) +  (products.get(i).carbohydrates *4 /100) + (products.get(i).fats *9 /100));;
@@ -107,11 +81,10 @@ public class One_Meal implements Iterable<Product>
                         product_gramm =  products.get(i).max_gramm;
                     }
                     products.get(i).cur_count_gramm = product_gramm;
-                    Calculate_PFC(products);
+                    Calculate_PFC();
                 }
             }
         }
-
         else {
             for (int i=0; i<products.size();i++){
                 if (products.get(i).Type_product == Product.Type_Product.Basic){
@@ -120,7 +93,7 @@ public class One_Meal implements Iterable<Product>
                         product_gramm =  products.get(i).max_gramm;
                     }
                     products.get(i).cur_count_gramm = product_gramm;
-                    Calculate_PFC(products);
+                    Calculate_PFC();
                 }
 
                 else if (products.get(i).Type_product == Product.Type_Product.Garnish){
@@ -129,28 +102,20 @@ public class One_Meal implements Iterable<Product>
                         product_gramm =  products.get(i).max_gramm;
                     }
                     products.get(i).cur_count_gramm = product_gramm;
-                    Calculate_PFC(products);
+                    Calculate_PFC();
                 }
 
                 else if (products.get(i).Type_product == Product.Type_Product.Adition){
-                    product_gramm = (max_kilocalories-kilocalories) / ((products.get(2).protein *4 /100) +  (products.get(i).carbohydrates *4 /100) + (products.get(i).fats *9 /100));;
+                    product_gramm = (max_kilocalories-kilocalories) / ((products.get(2).protein *4 /100)
+                            + (products.get(i).carbohydrates *4 /100) + (products.get(i).fats *9 /100));
                     if(product_gramm > products.get(i).max_gramm){
                         product_gramm =  products.get(i).max_gramm;
                     }
                     products.get(i).cur_count_gramm = product_gramm;
-                    Calculate_PFC(products);
+                    Calculate_PFC();
                 }
             }
         }
-
-
-    }
-
-    public void SetTypeMeal(Type_Of_Meal _type){
-        typeOfMeal = _type;
-    }
-    public Type_Of_Meal GetTypeMeal(){
-        return typeOfMeal;
     }
     public void AddProduct(Product product)
     {
@@ -162,7 +127,7 @@ public class One_Meal implements Iterable<Product>
         products.remove(product);
     }
 
-    Product Check_On_New_Product(List<Product> list_product,  List<One_Meal> meals_in_day){
+    Product Check_On_New_Product(List<Product> list_product, List<One_Meal> meals_in_day){
         boolean new_product = true;
         Random rand = new Random();
         Product product;
@@ -185,8 +150,6 @@ public class One_Meal implements Iterable<Product>
                     else{
                         new_product = true;
                     }
-
-
                 }
             }
             if(new_product){
@@ -196,13 +159,9 @@ public class One_Meal implements Iterable<Product>
         return product;
     }
 
-    Boolean Check_on_Special_Diet(List<One_Meal> mealList){
-        for(int i=0; i< mealList.size(); i++){
-            if(mealList.get(i).GetTypeMeal() == Type_Of_Meal.Breakfast){
-                return false;
-            }
-        }
-        return true;
+    Boolean Check_on_Special_Diet(Type_of_Diet diet)
+    {
+        return diet != Type_of_Diet.diet_regular && diet != Type_of_Diet.diet_16_8;
     }
 
     @Override
@@ -229,6 +188,48 @@ public class One_Meal implements Iterable<Product>
         };
     }
 
+    public float getKilocalories() {
+        return kilocalories;
+    }
 
+    public float getProtein() {
+        return protein;
+    }
 
+    public float getFats() {
+        return fats;
+    }
+
+    public float getCarbohydrates() {
+        return carbohydrates;
+    }
+//    public Type_Of_Meal getTypeOfMeal() {
+//        return typeOfMeal;
+//    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setMax_protein(float max_protein) {
+        this.max_protein = max_protein;
+    }
+
+    public void setMax_fats(float max_fats) {
+        this.max_fats = max_fats;
+    }
+
+    public void setMax_carbohydrates(float max_carbohydrates) {
+        this.max_carbohydrates = max_carbohydrates;
+    }
+
+    public void setMax_kilocalories(float max_kilocalories) {
+        this.max_kilocalories = max_kilocalories;
+    }
+
+    //    private Type_Of_Meal typeOfMeal;
+    //    public Breakfast(Type_Of_Meal type)
+    //    {
+    //        typeOfMeal = type;
+    //    }
 }
