@@ -44,7 +44,7 @@ public class DietPlan {
        for (var meal : Meals_in_day) {
            System.out.println(meal.getClass().getSimpleName());
 
-           for (var product: meal.getProducts())
+           for (var product: meal)
            {
                System.out.println(product);
            }
