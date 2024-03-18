@@ -20,7 +20,7 @@ public class Human
     }
 
     public static Human Human(int age, float height, float weight,
-                              float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)
+                              float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)   // конструктор человека
     {
         if (instance == null)
             instance = new Human(age, height, weight, activityCoefficient, gender, _Type_Diet);
@@ -38,7 +38,7 @@ public class Human
         return instance;
     }
     private float CalculateKilocalories(int age, float height, float weight,
-                                        float activityCoefficient, Gender gender)
+                                        float activityCoefficient, Gender gender)  // подсчёт ккал необходимый для конкретного человека
     {
         try
         {
@@ -64,7 +64,7 @@ public class Human
             return 0;
         }
     }
-    private void CalculateSFC()
+    private void CalculateSFC()       // расчёт БЖУ на день
     {
         protein = (kilocalories * 0.25f) / 4;
         fats = (kilocalories * 0.25f) / 9;

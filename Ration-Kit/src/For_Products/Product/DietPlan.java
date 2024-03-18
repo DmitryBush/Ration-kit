@@ -12,7 +12,7 @@ public class DietPlan {
     float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
     Type_of_Diet _Type_Diet;
 
-    public void Create_Day_Diet(Directory directory){
+    public void Create_Day_Diet(Directory directory){    // создание вариантов питания на день в зависимости от типа диеты
         _Type_Diet = Human.GetInstance().getTypeDiet();
         switch (_Type_Diet){
             case diet_regular, diet_16_8 ->
@@ -40,7 +40,7 @@ public class DietPlan {
     }
 
 
-   public void Show_Ration_OnDay(){
+   public void Show_Ration_OnDay(){     // показ всех продуктов используемых в дневном рационе
        for (var meal : Meals_in_day) {
            System.out.println(meal.getClass().getSimpleName());
 
@@ -58,7 +58,7 @@ public class DietPlan {
     }
 
 
-    void Explanations_of_intermittent_fasting(Type_of_Diet type_of_diet){
+    void Explanations_of_intermittent_fasting(Type_of_Diet type_of_diet){    // небольшой список советов
 
         switch (type_of_diet){
             case diet_regular ->

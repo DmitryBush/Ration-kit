@@ -11,10 +11,10 @@ import java.util.*;
 public class Main
 {
     static Scanner _scanner = new Scanner(System.in);
-    public static Human mainHuman;
-    public static Directory directory = new Directory();
+    public static Human mainHuman;    // создаём параметры пользователя для которого нужна диета
+    public static Directory directory = new Directory();      //для получения списков продуктов из базы данных
 
-    public static DietPlan _diet_plan = new DietPlan();
+    public static DietPlan _diet_plan = new DietPlan();    // план питания на день
 
 
     public static void main(String[] args){
@@ -24,7 +24,7 @@ public class Main
         _diet_plan.Show_Ration_OnDay();
     }
 
-    private static void Enter_Data_For_Person()
+    private static void Enter_Data_For_Person()   // ввод всех необходимых данных о человеке
     {
         Integer age = 0, Opredelitel_Mode_Life = 0;
         Float height = 0.f, weight = 0.f;
