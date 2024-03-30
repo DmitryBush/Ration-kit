@@ -58,6 +58,8 @@ public class Database implements Iterable<Product>
                         .SetCarbohydrates(table.getFloat("carbonohydrates"))
                         .SetMaxGramm(table.getInt("max_count")).BuildProduct());
             }
+            table.close();
+            _statement.close();
             return list;
         }
         catch (SQLException e)
