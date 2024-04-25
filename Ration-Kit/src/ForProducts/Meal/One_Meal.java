@@ -1,10 +1,10 @@
-package For_Products.Meal;
+package ForProducts.Meal;
 
 import Database.Directory;
-import For_Products.Meal.Visitor.MealVisitor;
-import For_Products.Product.Product;
-import For_Products.Product.Type_Product;
-import For_Products.Product.Type_of_Diet;
+import ForProducts.Meal.Visitor.MealVisitor;
+import ForProducts.Product.Product;
+import ForProducts.Product.Type_Product;
+import ForProducts.Product.Type_of_Diet;
 import Human.Human;
 
 import java.util.*;

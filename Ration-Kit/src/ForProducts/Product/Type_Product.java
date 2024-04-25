@@ -1,4 +1,4 @@
-package For_Products.Product;
+package ForProducts.Product;
 
 public enum Type_Product{
     Garnish,
