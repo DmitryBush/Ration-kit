@@ -1,9 +1,9 @@
 package Database;
 
-import For_Products.Product.Builder.BuilderProductClass;
-import For_Products.Product.Original;
-import For_Products.Product.Product;
-import For_Products.Product.Type_Product;
+import ForProducts.Product.Builder.BuilderProductClass;
+import ForProducts.Product.Original;
+import ForProducts.Product.Product;
+import ForProducts.Product.Type_Product;
 
 import java.sql.*;
 import java.util.*;

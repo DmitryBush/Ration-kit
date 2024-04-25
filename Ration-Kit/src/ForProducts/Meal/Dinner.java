@@ -1,7 +1,7 @@
-package For_Products.Meal;
+package ForProducts.Meal;
 
 import Database.Directory;
-import For_Products.Meal.Visitor.MealVisitor;
+import ForProducts.Meal.Visitor.MealVisitor;
 
 import java.util.List;
 

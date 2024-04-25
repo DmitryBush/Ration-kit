@@ -1,6 +1,6 @@
-package For_Products.Meal.Visitor;
+package ForProducts.Meal.Visitor;
 
-import For_Products.Meal.One_Meal;
+import ForProducts.Meal.One_Meal;
 
 public interface MealVisitor
 {

@@ -1,8 +1,8 @@
-package For_Products.Product.Builder;
+package ForProducts.Product.Builder;
 
-import For_Products.Product.Original;
-import For_Products.Product.Product;
-import For_Products.Product.Type_Product;
+import ForProducts.Product.Original;
+import ForProducts.Product.Product;
+import ForProducts.Product.Type_Product;
 
 public class BuilderProductClass implements ProductBuilder
 {

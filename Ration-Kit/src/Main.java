@@ -1,7 +1,7 @@
 import Database.Directory;
-import For_Products.Product.DietPlan;
+import ForProducts.Product.DietPlan;
 
-import For_Products.Product.Type_of_Diet;
+import ForProducts.Product.Type_of_Diet;
 import Human.Gender;
 import Human.GenderException;
 import Human.Human;

@@ -1,15 +1,15 @@
 package Database;
 
-import For_Products.Product.Product;
+import ForProducts.Product.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Directory
 {
-    private List<Product> Basic_Products;
-    private List<Product> Garnish_Products;
-    private List<Product> Addition_Products;
+    private final List<Product> Basic_Products;
+    private final List<Product> Garnish_Products;
+    private final List<Product> Addition_Products;
 
     public Directory()
     {

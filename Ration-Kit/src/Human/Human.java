@@ -1,6 +1,6 @@
 package Human;
 
-import For_Products.Product.Type_of_Diet;
+import ForProducts.Product.Type_of_Diet;
 
 public class Human
 {
@@ -60,7 +60,6 @@ public class Human
         catch (GenderException e)
         {
             System.err.println(e.getMessage());
-            e.printStackTrace();
             return 0;
         }
     }
