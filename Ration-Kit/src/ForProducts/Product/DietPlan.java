@@ -7,21 +7,30 @@ import Human.Human;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class DietPlan {
     private final List<One_Meal> Meals_in_day = new ArrayList<>();
     float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
     Type_of_Diet _Type_Diet;
 
-    public void Create_Day_Diet(Directory directory){    // создание вариантов питания на день в зависимости от типа диеты
+    public void Create_Day_Diet(Directory directory) throws InterruptedException {    // создание вариантов питания на день в зависимости от типа диеты
         CreatePlan();
+        Vector<Thread> threads = new Vector<>();
 
         for(int i=0; i<Meals_in_day.size(); i++){
+            Thread thr = threads.add(new Thread(Meals_in_day.get(i)::Create_Meal(directory, Meals_in_day, new MealVisitorClass())));  // надо придумать как сделать эту хуету
+            thr.start();
             Meals_in_day.get(i).Create_Meal(directory, Meals_in_day, new MealVisitorClass());
             day_protein +=Meals_in_day.get(i).getProtein();
             day_fats +=Meals_in_day.get(i).getFats();
             day_carbonohydrates += Meals_in_day.get(i).getCarbohydrates();
         }
+
+        for(var thr: threads){
+            thr.join();
+        }
+
         day_kilocalories = day_protein*4 + day_carbonohydrates*4 + day_fats*9;
         Explanations_of_intermittent_fasting();
     }

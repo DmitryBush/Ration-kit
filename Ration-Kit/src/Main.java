@@ -17,7 +17,7 @@ public class Main
     public static DietPlan _diet_plan = new DietPlan();    // план питания на день
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
 
         Enter_Data_For_Person();
         _diet_plan.Create_Day_Diet(directory);

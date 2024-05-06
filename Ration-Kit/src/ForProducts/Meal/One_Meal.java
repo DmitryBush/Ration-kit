@@ -40,7 +40,7 @@ public abstract class One_Meal implements Iterable<Product>
         kilocalories = protein*4 + carbohydrates*4+ fats*4;
     }
 
-    void Balance_Products_In_Meal(){
+   synchronized void  Balance_Products_In_Meal(){
         Random rand  = new Random();
         float product_gramm = 0;
         protein =0;
