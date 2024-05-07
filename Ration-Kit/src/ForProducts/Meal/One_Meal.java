@@ -15,6 +15,19 @@ public abstract class One_Meal implements Iterable<Product>
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
     private List<Product> products = new ArrayList<>();
 
+    volatile List<One_Meal> meals_in_day;
+    Directory directory;
+    MealVisitor mealVisitor;
+
+
+    One_Meal (Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor){
+        this.directory = directory;
+        this.meals_in_day = meals_in_day;
+        this.mealVisitor = mealVisitor;
+    }
+
+
+
     public abstract void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor);
 
     protected void CreatePlan(Directory directory, List<One_Meal> meals_in_day)
@@ -227,4 +240,5 @@ public abstract class One_Meal implements Iterable<Product>
                 "Общее количество Углеводов за приём пищи: " + carbohydrates + "\n" +
                 "Общее количество ккал за приём пищи: " + kilocalories + "\n\n\n";
     }
+
 }

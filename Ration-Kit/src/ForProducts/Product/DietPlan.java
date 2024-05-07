@@ -1,6 +1,7 @@
 package ForProducts.Product;
 import Database.Directory;
 import ForProducts.Meal.*;
+import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Meal.Visitor.MealVisitorClass;
 import ForProducts.Product.Chain.*;
 import Human.Human;
@@ -15,13 +16,16 @@ public class DietPlan {
     Type_of_Diet _Type_Diet;
 
     public void Create_Day_Diet(Directory directory) throws InterruptedException {    // создание вариантов питания на день в зависимости от типа диеты
-        CreatePlan();
+
+
         Vector<Thread> threads = new Vector<>();
+        CreatePlan(directory, Meals_in_day, new MealVisitorClass(),threads);
 
         for(int i=0; i<Meals_in_day.size(); i++){
-            Thread thr = threads.add(new Thread(Meals_in_day.get(i)::Create_Meal(directory, Meals_in_day, new MealVisitorClass())));  // надо придумать как сделать эту хуету
-            thr.start();
-            Meals_in_day.get(i).Create_Meal(directory, Meals_in_day, new MealVisitorClass());
+            //Thread thr = threads.add(new Thread(Meals_in_day.get(i)::Set_Parametrs));
+            //thr.start();
+            //Meals_in_day.get(i).Create_Meal(directory, Meals_in_day, new MealVisitorClass());
+            threads.get(i).start();
             day_protein +=Meals_in_day.get(i).getProtein();
             day_fats +=Meals_in_day.get(i).getFats();
             day_carbonohydrates += Meals_in_day.get(i).getCarbohydrates();
@@ -35,7 +39,7 @@ public class DietPlan {
         Explanations_of_intermittent_fasting();
     }
 
-    private void CreatePlan()
+    private void CreatePlan(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor, Vector<Thread> threads)
     {
         _Type_Diet = Human.GetInstance().getTypeDiet();
         Handler handler = new RegularPlan();
@@ -45,7 +49,7 @@ public class DietPlan {
         handler.setNext(handler1);
         handler1.setNext(handler2);
 
-        handler.handle(_Type_Diet, Meals_in_day);
+        handler.handle(_Type_Diet, Meals_in_day, directory,mealVisitor, threads);
     }
 
    public void Show_Ration_OnDay(){     // показ всех продуктов используемых в дневном рационе

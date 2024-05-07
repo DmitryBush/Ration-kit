@@ -1,9 +1,12 @@
 package ForProducts.Product.Chain;
 
+import Database.Directory;
 import ForProducts.Meal.One_Meal;
+import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Product.Type_of_Diet;
 
 import java.util.List;
+import java.util.Vector;
 
 public class Plan0 extends PlanHandler
 {
@@ -12,7 +15,7 @@ public class Plan0 extends PlanHandler
     }
 
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals) {}
+    protected void CreatePlan(List<One_Meal> dayMeals, Directory directory, MealVisitor mealVisitor, Vector<Thread> threads) {}
 
     @Override
     protected void Describe() {

@@ -1,10 +1,13 @@
 package ForProducts.Product.Chain;
 
+import Database.Directory;
 import ForProducts.Meal.One_Meal;
+import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Product.Type_of_Diet;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Vector;
 
 public abstract class PlanHandler implements Handler
 {
@@ -18,13 +21,13 @@ public abstract class PlanHandler implements Handler
     @Override
     public void setNext(Handler handler) {nextChain = handler;}
     @Override
-    public void handle(Type_of_Diet type, List<One_Meal> dayMeals)
+    public void handle(Type_of_Diet type, List<One_Meal> dayMeals, Directory directory, MealVisitor mealVisitor,Vector<Thread> threads)
     {
         if (this.type.ordinal() == type.ordinal())
-            CreatePlan(dayMeals);
+            CreatePlan(dayMeals, directory,mealVisitor,threads);
 
         if (Objects.nonNull(nextChain))
-            nextChain.handle(type, dayMeals);
+            nextChain.handle(type, dayMeals, directory, mealVisitor,threads);
     }
     @Override
     public void Explain(Type_of_Diet type)
@@ -35,6 +38,6 @@ public abstract class PlanHandler implements Handler
         if (Objects.nonNull(nextChain))
             nextChain.Explain(type);
     }
-    protected abstract void CreatePlan(List<One_Meal> dayMeals);
+    protected abstract void CreatePlan(List<One_Meal> dayMeals, Directory directory, MealVisitor mealVisitor, Vector<Thread> threads);
     protected abstract void Describe();
 }
