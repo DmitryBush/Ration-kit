@@ -137,7 +137,7 @@ public abstract class One_Meal implements Iterable<Product>
         products.remove(product);
     }
 
-    Product Check_On_New_Product(List<Product> list_product, List<One_Meal> meals_in_day){
+    private synchronized Product Check_On_New_Product(List<Product> list_product, List<One_Meal> meals_in_day){
         boolean new_product = true;
         Random rand = new Random();
         Product product;

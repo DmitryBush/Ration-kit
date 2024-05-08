@@ -18,7 +18,8 @@ public class RegularPlan extends PlanHandler
     }
 
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals, Directory directory, MealVisitor mealVisitor, Vector<Thread> threads)
+    protected void CreatePlan(List<One_Meal> dayMeals, Directory directory,
+                              MealVisitor mealVisitor, List<Thread> threads)
     {
         Breakfast breakfast = new Breakfast(directory,dayMeals,mealVisitor);
         Lunch lunch = new Lunch(directory,dayMeals,mealVisitor);

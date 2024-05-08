@@ -15,7 +15,8 @@ public class Plan0 extends PlanHandler
     }
 
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals, Directory directory, MealVisitor mealVisitor, Vector<Thread> threads) {}
+    protected void CreatePlan(List<One_Meal> dayMeals, Directory directory,
+                              MealVisitor mealVisitor, List<Thread> threads) {}
 
     @Override
     protected void Describe() {

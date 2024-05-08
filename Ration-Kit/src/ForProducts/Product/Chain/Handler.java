@@ -12,6 +12,7 @@ import java.util.Vector;
 public interface Handler
 {
     void setNext(Handler handler);
-    void handle(Type_of_Diet type, List<One_Meal> dayMeals, Directory directory, MealVisitor mealVisitor, Vector<Thread> threads);
+    void handle(Type_of_Diet type, List<One_Meal> dayMeals, Directory directory,
+                MealVisitor mealVisitor, List<Thread> threads);
     void Explain(Type_of_Diet type);
 }

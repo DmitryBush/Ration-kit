@@ -16,7 +16,8 @@ public class Plan4 extends PlanHandler
         super(Type_of_Diet.diet_20_4);
     }
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals, Directory directory, MealVisitor mealVisitor, Vector<Thread> threads) {
+    protected void CreatePlan(List<One_Meal> dayMeals, Directory directory,
+                              MealVisitor mealVisitor, List<Thread> threads) {
 
         Lunch lunch = new Lunch(directory,dayMeals,mealVisitor);
         Dinner dinner = new Dinner(directory,dayMeals,mealVisitor);
