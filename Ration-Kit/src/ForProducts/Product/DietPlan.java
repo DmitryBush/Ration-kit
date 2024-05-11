@@ -13,16 +13,12 @@ public class DietPlan {
     float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
     Type_of_Diet _Type_Diet;
 
-    public void Create_Day_Diet(Directory directory) throws InterruptedException {    // создание вариантов питания на день в зависимости от типа диеты
+    public void Create_Day_Diet() throws InterruptedException {    // создание вариантов питания на день в зависимости от типа диеты
         List<Thread> threads = new LinkedList<>();
-        CreatePlan(directory, Collections.synchronizedList(Meals_in_day), new MealVisitorClass(),threads);
+        CreatePlan(Directory.GetInstance(), threads);
 
-        for(int i=0; i<Meals_in_day.size(); i++){
-            //Thread thr = threads.add(new Thread(Meals_in_day.get(i)::Set_Parametrs));
-            //thr.start();
-            //Meals_in_day.get(i).Create_Meal(directory, Meals_in_day, new MealVisitorClass());
+        for(int i=0; i<Meals_in_day.size(); i++)
             threads.get(i).start();
-        }
 
         for(var thr: threads)
             thr.join();
@@ -38,7 +34,7 @@ public class DietPlan {
         Explanations_of_intermittent_fasting();
     }
 
-    private void CreatePlan(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor, List<Thread> threads)
+    private void CreatePlan(Directory directory, List<Thread> threads)
     {
         _Type_Diet = Human.GetInstance().getTypeDiet();
         Handler handler = new RegularPlan();
@@ -48,7 +44,8 @@ public class DietPlan {
         handler.setNext(handler1);
         handler1.setNext(handler2);
 
-        handler.handle(_Type_Diet, Meals_in_day, directory,mealVisitor, threads);
+        handler.handle(_Type_Diet, Collections.synchronizedList(Meals_in_day), directory,
+                new MealVisitorClass(), threads);
     }
 
    public void Show_Ration_OnDay(){     // показ всех продуктов используемых в дневном рационе

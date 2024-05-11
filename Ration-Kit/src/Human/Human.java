@@ -8,7 +8,7 @@ public class Human
     private static volatile Human instance = null;
     // Calculated ration values
     private float kilocalories, protein, fats, carbohydrates;
-    private Type_of_Diet _Type_Diet;
+    private final Type_of_Diet _Type_Diet;
 
 
     private Human(int age, float height, float weight,
@@ -19,23 +19,19 @@ public class Human
         CalculateSFC();
     }
 
-    public static Human Human(int age, float height, float weight,
-                              float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)   // конструктор человека
-    {
-        synchronized(this)
-            {
-        if (instance == null)
-            instance = new Human(age, height, weight, activityCoefficient, gender, _Type_Diet);
-            }
-        return instance;
-    }
     public static Human GetInstance(int age, float height, float weight,
                                                  float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)
     {
-        {synchronized(this)
         if (instance == null)
-            instance = new Human(age, height, weight, activityCoefficient, gender, _Type_Diet);
-    }
+        {
+            synchronized (Human.class)
+            {
+                if (instance == null)
+                {
+                    instance = new Human(age, height, weight, activityCoefficient, gender, _Type_Diet);
+                }
+            }
+        }
         return instance;
     }
     public static Human GetInstance()

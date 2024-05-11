@@ -12,7 +12,7 @@ public class Main
 {
     static Scanner _scanner = new Scanner(System.in);
     public static Human mainHuman;    // создаём параметры пользователя для которого нужна диета
-    public static Directory directory = new Directory();      //для получения списков продуктов из базы данных
+    public static Directory directory = Directory.GetInstance();      //для получения списков продуктов из базы данных
 
     public static DietPlan _diet_plan = new DietPlan();    // план питания на день
 
@@ -20,7 +20,7 @@ public class Main
     public static void main(String[] args) throws InterruptedException {
 
         Enter_Data_For_Person();
-        _diet_plan.Create_Day_Diet(directory);
+        _diet_plan.Create_Day_Diet();
         _diet_plan.Show_Ration_OnDay();
     }
 
@@ -68,7 +68,7 @@ public class Main
                 activityCoefficient = 1.8f;
                 break;
         }
-        mainHuman = Human.Human(age,height,weight, activityCoefficient, gender, dietplane);
+        mainHuman = Human.GetInstance(age,height,weight, activityCoefficient, gender, dietplane);
     }
 
     private static Object EnterFromKeyboard(String message, String datatype)
