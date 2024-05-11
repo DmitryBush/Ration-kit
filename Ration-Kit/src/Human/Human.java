@@ -1,6 +1,6 @@
 package Human;
 
-import ForProducts.Product.Type_of_Diet;
+import ForProducts.Product.TypeofDiet;
 
 public class Human
 {
@@ -8,11 +8,11 @@ public class Human
     private static volatile Human instance = null;
     // Calculated ration values
     private float kilocalories, protein, fats, carbohydrates;
-    private final Type_of_Diet _Type_Diet;
+    private final TypeofDiet _Type_Diet;
 
 
     private Human(int age, float height, float weight,
-                 float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)
+                 float activityCoefficient, Gender gender, TypeofDiet _Type_Diet)
     {
         this._Type_Diet = _Type_Diet;
         kilocalories = CalculateKilocalories(age, height, weight, activityCoefficient, gender);
@@ -20,7 +20,7 @@ public class Human
     }
 
     public static Human GetInstance(int age, float height, float weight,
-                                                 float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)
+                                                 float activityCoefficient, Gender gender, TypeofDiet _Type_Diet)
     {
         if (instance == null)
         {
@@ -86,7 +86,7 @@ public class Human
         return carbohydrates;
     }
 
-    public Type_of_Diet getTypeDiet() {
+    public TypeofDiet getTypeDiet() {
         return _Type_Diet;
     }
 }

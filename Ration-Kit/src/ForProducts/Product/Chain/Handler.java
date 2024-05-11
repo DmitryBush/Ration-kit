@@ -1,18 +1,16 @@
 package ForProducts.Product.Chain;
 
 import Database.Directory;
-import ForProducts.Meal.One_Meal;
+import ForProducts.Meal.OneMeal;
 import ForProducts.Meal.Visitor.MealVisitor;
-import ForProducts.Product.DietPlan;
-import ForProducts.Product.Type_of_Diet;
+import ForProducts.Product.TypeofDiet;
 
 import java.util.List;
-import java.util.Vector;
 
 public interface Handler
 {
     void setNext(Handler handler);
-    void handle(Type_of_Diet type, List<One_Meal> dayMeals, Directory directory,
+    void handle(TypeofDiet type, List<OneMeal> dayMeals, Directory directory,
                 MealVisitor mealVisitor, List<Thread> threads);
-    void Explain(Type_of_Diet type);
+    void Explain(TypeofDiet type);
 }

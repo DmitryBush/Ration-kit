@@ -4,21 +4,20 @@ import Database.Directory;
 import ForProducts.Meal.Breakfast;
 import ForProducts.Meal.Dinner;
 import ForProducts.Meal.Lunch;
-import ForProducts.Meal.One_Meal;
+import ForProducts.Meal.OneMeal;
 import ForProducts.Meal.Visitor.MealVisitor;
-import ForProducts.Product.Type_of_Diet;
+import ForProducts.Product.TypeofDiet;
 
 import java.util.List;
-import java.util.Vector;
 
 public class RegularPlan extends PlanHandler
 {
     public RegularPlan() {
-        super(Type_of_Diet.diet_regular);
+        super(TypeofDiet.dietregular);
     }
 
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals, Directory directory,
+    protected void CreatePlan(List<OneMeal> dayMeals, Directory directory,
                               MealVisitor mealVisitor, List<Thread> threads)
     {
         Breakfast breakfast = new Breakfast(directory,dayMeals,mealVisitor);

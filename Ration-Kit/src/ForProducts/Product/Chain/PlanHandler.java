@@ -1,28 +1,27 @@
 package ForProducts.Product.Chain;
 
 import Database.Directory;
-import ForProducts.Meal.One_Meal;
+import ForProducts.Meal.OneMeal;
 import ForProducts.Meal.Visitor.MealVisitor;
-import ForProducts.Product.Type_of_Diet;
+import ForProducts.Product.TypeofDiet;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Vector;
 
 public abstract class PlanHandler implements Handler
 {
-    private final Type_of_Diet type;
+    private final TypeofDiet type;
     private Handler nextChain;
 
-    public PlanHandler(Type_of_Diet type)
+    public PlanHandler(TypeofDiet type)
     {
         this.type = type;
     }
     @Override
     public void setNext(Handler handler) {nextChain = handler;}
     @Override
-    public void handle(Type_of_Diet type, List<One_Meal> dayMeals, Directory directory,
-                       MealVisitor mealVisitor,List<Thread> threads)
+    public void handle(TypeofDiet type, List<OneMeal> dayMeals, Directory directory,
+                       MealVisitor mealVisitor, List<Thread> threads)
     {
         if (this.type.ordinal() == type.ordinal())
             CreatePlan(dayMeals, directory,mealVisitor, threads);
@@ -31,7 +30,7 @@ public abstract class PlanHandler implements Handler
             nextChain.handle(type, dayMeals, directory, mealVisitor,threads);
     }
     @Override
-    public void Explain(Type_of_Diet type)
+    public void Explain(TypeofDiet type)
     {
         if (this.type.ordinal() == type.ordinal())
             Describe();
@@ -39,7 +38,7 @@ public abstract class PlanHandler implements Handler
         if (Objects.nonNull(nextChain))
             nextChain.Explain(type);
     }
-    protected abstract void CreatePlan(List<One_Meal> dayMeals, Directory directory,
+    protected abstract void CreatePlan(List<OneMeal> dayMeals, Directory directory,
                                        MealVisitor mealVisitor, List<Thread> threads);
     protected abstract void Describe();
 }

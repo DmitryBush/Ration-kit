@@ -1,8 +1,6 @@
 package Database;
 
 import ForProducts.Product.Product;
-import ForProducts.Product.Type_of_Diet;
-import Human.Human;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,10 +6,10 @@ public class Product  {
     private float kilocalories, protein, fats, carbohydrates, max_gramm, cur_count_gramm;
     private String Name;
     private Original original;
-    private Type_Product Type_product;
+    private TypeProduct Type_product;
 
     public void Take_PFC_In_Base(String _name, float _protein, float _fats, float _carbohydrates,
-                                 Original _original, Type_Product _type, float _max_gramm) {
+                                 Original _original, TypeProduct _type, float _max_gramm) {
 
         Name = _name;
         kilocalories = _protein*4 + _carbohydrates*4 + _fats*9;
@@ -78,11 +78,11 @@ public class Product  {
         this.original = original;
     }
 
-    public Type_Product getType_product() {
+    public TypeProduct getType_product() {
         return Type_product;
     }
 
-    public void setType_product(Type_Product type_product) {
+    public void setType_product(TypeProduct type_product) {
         Type_product = type_product;
     }
 

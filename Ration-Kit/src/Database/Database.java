@@ -3,7 +3,7 @@ package Database;
 import ForProducts.Product.Builder.BuilderProductClass;
 import ForProducts.Product.Original;
 import ForProducts.Product.Product;
-import ForProducts.Product.Type_Product;
+import ForProducts.Product.TypeProduct;
 
 import java.sql.*;
 import java.util.*;
@@ -50,9 +50,9 @@ public class Database implements Iterable<Product>
             {
                 list.add(new BuilderProductClass().SetName(table.getString("name_products"))
                         .SetOriginal(table.getBoolean("vegetable") ? Original.Vegetable : Original.Animal)
-                        .SetTypeProduct(table.getBoolean("garnish") ? Type_Product.Garnish
-                                : table.getBoolean("adition") ? Type_Product.Addition
-                                : table.getBoolean("basic") ? Type_Product.Basic : null)
+                        .SetTypeProduct(table.getBoolean("garnish") ? TypeProduct.Garnish
+                                : table.getBoolean("adition") ? TypeProduct.Addition
+                                : table.getBoolean("basic") ? TypeProduct.Basic : null)
                         .SetProtein(table.getFloat("protein"))
                         .SetFats(table.getFloat("fat"))
                         .SetCarbohydrates(table.getFloat("carbonohydrates"))
@@ -135,9 +135,9 @@ public class Database implements Iterable<Product>
                     return new BuilderProductClass().SetName(table.getString("name_products"))
                             .SetOriginal(table.getBoolean("vegetable") ? Original.Vegetable
                                     : Original.Animal)
-                            .SetTypeProduct(table.getBoolean("garnish") ? Type_Product.Garnish
-                                    : table.getBoolean("adition") ? Type_Product.Addition
-                                    : table.getBoolean("basic") ? Type_Product.Basic : null)
+                            .SetTypeProduct(table.getBoolean("garnish") ? TypeProduct.Garnish
+                                    : table.getBoolean("adition") ? TypeProduct.Addition
+                                    : table.getBoolean("basic") ? TypeProduct.Basic : null)
                             .SetProtein(table.getFloat("protein"))
                             .SetFats(table.getFloat("fat"))
                             .SetCarbohydrates(table.getFloat("carbonohydrates"))

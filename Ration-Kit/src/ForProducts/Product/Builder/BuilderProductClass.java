@@ -2,7 +2,7 @@ package ForProducts.Product.Builder;
 
 import ForProducts.Product.Original;
 import ForProducts.Product.Product;
-import ForProducts.Product.Type_Product;
+import ForProducts.Product.TypeProduct;
 
 public class BuilderProductClass implements ProductBuilder
 {
@@ -22,7 +22,7 @@ public class BuilderProductClass implements ProductBuilder
     }
 
     @Override
-    public BuilderProductClass SetTypeProduct(Type_Product typeProduct)
+    public BuilderProductClass SetTypeProduct(TypeProduct typeProduct)
     {
         _product.setType_product(typeProduct);
         return this;
