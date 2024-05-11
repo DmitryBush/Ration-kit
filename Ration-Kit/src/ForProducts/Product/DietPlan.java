@@ -1,32 +1,40 @@
 package ForProducts.Product;
 import Database.Directory;
 import ForProducts.Meal.*;
+import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Meal.Visitor.MealVisitorClass;
 import ForProducts.Product.Chain.*;
 import Human.Human;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DietPlan {
     private final List<One_Meal> Meals_in_day = new ArrayList<>();
     float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
     Type_of_Diet _Type_Diet;
 
-    public void Create_Day_Diet(Directory directory){    // создание вариантов питания на день в зависимости от типа диеты
-        CreatePlan();
+    public void Create_Day_Diet() throws InterruptedException {    // создание вариантов питания на день в зависимости от типа диеты
+        List<Thread> threads = new LinkedList<>();
+        CreatePlan(Directory.GetInstance(), threads);
 
-        for(int i=0; i<Meals_in_day.size(); i++){
-            Meals_in_day.get(i).Create_Meal(directory, Meals_in_day, new MealVisitorClass());
-            day_protein +=Meals_in_day.get(i).getProtein();
-            day_fats +=Meals_in_day.get(i).getFats();
-            day_carbonohydrates += Meals_in_day.get(i).getCarbohydrates();
+        for(int i=0; i<Meals_in_day.size(); i++)
+            threads.get(i).start();
+
+        for(var thr: threads)
+            thr.join();
+
+        for (var i:Meals_in_day)
+        {
+            day_protein += i.getProtein();
+            day_fats += i.getFats();
+            day_carbonohydrates += i.getCarbohydrates();
         }
+
         day_kilocalories = day_protein*4 + day_carbonohydrates*4 + day_fats*9;
         Explanations_of_intermittent_fasting();
     }
 
-    private void CreatePlan()
+    private void CreatePlan(Directory directory, List<Thread> threads)
     {
         _Type_Diet = Human.GetInstance().getTypeDiet();
         Handler handler = new RegularPlan();
@@ -36,7 +44,8 @@ public class DietPlan {
         handler.setNext(handler1);
         handler1.setNext(handler2);
 
-        handler.handle(_Type_Diet, Meals_in_day);
+        handler.handle(_Type_Diet, Collections.synchronizedList(Meals_in_day), directory,
+                new MealVisitorClass(), threads);
     }
 
    public void Show_Ration_OnDay(){     // показ всех продуктов используемых в дневном рационе

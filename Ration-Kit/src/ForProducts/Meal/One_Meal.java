@@ -15,6 +15,19 @@ public abstract class One_Meal implements Iterable<Product>
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
     private List<Product> products = new ArrayList<>();
 
+    volatile List<One_Meal> meals_in_day;
+    Directory directory;
+    MealVisitor mealVisitor;
+
+
+    One_Meal (Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor){
+        this.directory = directory;
+        this.meals_in_day = meals_in_day;
+        this.mealVisitor = mealVisitor;
+    }
+
+
+
     public abstract void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor);
 
     protected void CreatePlan(Directory directory, List<One_Meal> meals_in_day)
@@ -40,7 +53,7 @@ public abstract class One_Meal implements Iterable<Product>
         kilocalories = protein*4 + carbohydrates*4+ fats*4;
     }
 
-    void Balance_Products_In_Meal(){
+   synchronized void  Balance_Products_In_Meal(){
         Random rand  = new Random();
         float product_gramm = 0;
         protein =0;
@@ -124,7 +137,7 @@ public abstract class One_Meal implements Iterable<Product>
         products.remove(product);
     }
 
-    Product Check_On_New_Product(List<Product> list_product, List<One_Meal> meals_in_day){
+    private synchronized Product Check_On_New_Product(List<Product> list_product, List<One_Meal> meals_in_day){
         boolean new_product = true;
         Random rand = new Random();
         Product product;
@@ -227,4 +240,5 @@ public abstract class One_Meal implements Iterable<Product>
                 "Общее количество Углеводов за приём пищи: " + carbohydrates + "\n" +
                 "Общее количество ккал за приём пищи: " + kilocalories + "\n\n\n";
     }
+
 }
