@@ -20,7 +20,7 @@ public class Lunch extends OneMeal implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Начало создания приёма пищи");
-        Create_Meal(directory, mealsinday,mealVisitor);
+        System.out.println("Начало создания приёма пищи: обед");
+        Create_Meal(directory,mealsinday,mealVisitor);
     }
 }

@@ -12,16 +12,22 @@ public class DietPlan {
     float dayprotein, dayfats, daycarbonohydrates, daykilocalories;
     TypeofDiet TypeDiet;
 
-    public void Create_Day_Diet() throws InterruptedException {    // создание вариантов питания на день в зависимости от типа диеты
-
+    public void Create_Day_Diet() {    // создание вариантов питания на день в зависимости от типа диеты
         List<Thread> threads = new LinkedList<>();
         CreatePlan(Directory.GetInstance(), threads);
 
         for(int i = 0; i< MealsInday.size(); i++)
             threads.get(i).start();
 
-        for(var thr: threads)
-            thr.join();
+        try
+        {
+            for(var thr: threads)
+                thr.join();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Thread interrupt has occurred");
+        }
 
         for (var i: MealsInday)
         {
