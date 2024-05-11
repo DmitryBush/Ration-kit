@@ -14,14 +14,14 @@ public class Main
     public static Human mainHuman;    // создаём параметры пользователя для которого нужна диета
     public static Directory directory = Directory.GetInstance();      //для получения списков продуктов из базы данных
 
-    public static DietPlan _diet_plan = new DietPlan();    // план питания на день
+    public static DietPlan dietPlan = new DietPlan();    // план питания на день
 
 
     public static void main(String[] args) throws InterruptedException {
 
         Enter_Data_For_Person();
-        _diet_plan.Create_Day_Diet();
-        _diet_plan.Show_Ration_OnDay();
+        dietPlan.Create_Day_Diet();
+        dietPlan.Show_Ration_OnDay();
     }
 
     private static void Enter_Data_For_Person()   // ввод всех необходимых данных о человеке
