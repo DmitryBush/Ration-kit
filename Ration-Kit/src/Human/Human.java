@@ -5,7 +5,7 @@ import ForProducts.Product.Type_of_Diet;
 public class Human
 {
     // Static instance of a class
-    private static Human instance = null;
+    private static volatile Human instance = null;
     // Calculated ration values
     private float kilocalories, protein, fats, carbohydrates;
     private Type_of_Diet _Type_Diet;
@@ -22,18 +22,23 @@ public class Human
     public static Human Human(int age, float height, float weight,
                               float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)   // конструктор человека
     {
+        synchronized(this)
+            {
         if (instance == null)
             instance = new Human(age, height, weight, activityCoefficient, gender, _Type_Diet);
+            }
         return instance;
     }
-    public static synchronized Human GetInstance(int age, float height, float weight,
+    public static Human GetInstance(int age, float height, float weight,
                                                  float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)
     {
+        {synchronized(this)
         if (instance == null)
             instance = new Human(age, height, weight, activityCoefficient, gender, _Type_Diet);
+    }
         return instance;
     }
-    public static synchronized Human GetInstance()
+    public static Human GetInstance()
     {
         return instance;
     }
