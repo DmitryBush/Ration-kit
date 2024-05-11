@@ -1,21 +1,20 @@
 package ForProducts.Product.Chain;
 
 import Database.Directory;
-import ForProducts.Meal.One_Meal;
+import ForProducts.Meal.OneMeal;
 import ForProducts.Meal.Visitor.MealVisitor;
-import ForProducts.Product.Type_of_Diet;
+import ForProducts.Product.TypeofDiet;
 
 import java.util.List;
-import java.util.Vector;
 
 public class Plan0 extends PlanHandler
 {
     public Plan0() {
-        super(Type_of_Diet.diet_24_0);
+        super(TypeofDiet.diet_24_0);
     }
 
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals, Directory directory,
+    protected void CreatePlan(List<OneMeal> dayMeals, Directory directory,
                               MealVisitor mealVisitor, List<Thread> threads) {}
 
     @Override

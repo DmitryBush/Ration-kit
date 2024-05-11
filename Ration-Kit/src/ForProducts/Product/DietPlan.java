@@ -8,9 +8,9 @@ import Human.Human;
 import java.util.*;
 
 public class DietPlan {
-    private final List<One_Meal> MealsInday = new ArrayList<>();
+    private final List<OneMeal> MealsInday = new ArrayList<>();
     float dayprotein, dayfats, daycarbonohydrates, daykilocalories;
-    Type_of_Diet TypeDiet;
+    TypeofDiet TypeDiet;
 
     public void Create_Day_Diet() throws InterruptedException {    // создание вариантов питания на день в зависимости от типа диеты
 
