@@ -20,7 +20,7 @@ public class Breakfast extends One_Meal implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Начало создания приёма пищи");
+        System.out.println("Начало создания приёма пищи: завтрак");
         Create_Meal(directory,meals_in_day,mealVisitor);
     }
 }
